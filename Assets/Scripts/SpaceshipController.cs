@@ -34,9 +34,14 @@ public class SpaceshipController : MonoBehaviour
     private bool _leftButtonIsPressed;
     private bool _rightButtonIsPressed;
     private bool _canMove;
-    private bool _levelStarted;
+    private bool _canStartMovement;
 
     #region MonoBehaviour
+    void Awake()
+    {
+        _canStartMovement = true;
+    }
+
     void Update()
     {
         ReadInputs();
@@ -94,17 +99,20 @@ public class SpaceshipController : MonoBehaviour
             _rightButtonIsPressed = false;
         }
 
-        if (!_levelStarted && (_rightButtonIsPressed || _leftButtonIsPressed))
+        if (_canStartMovement && (_rightButtonIsPressed || _leftButtonIsPressed))
         {
-            _levelStarted = true;
+            _canStartMovement = false;
             _canMove = true;
         }
     }
 
     private void UpdateThrustersAnimation()
     {
-        LeftThruster.SetActive(_leftButtonIsPressed);
-        RightThruster.SetActive(_rightButtonIsPressed);
+        if (_canMove)
+        {
+            LeftThruster.SetActive(_leftButtonIsPressed);
+            RightThruster.SetActive(_rightButtonIsPressed);
+        }
     }
 
     private void AppplyGravity()
@@ -175,15 +183,26 @@ public class SpaceshipController : MonoBehaviour
                 Debug.Log("Level failed, Speed = " + _currentSpeed.magnitude + " Angle = " + GetSpaceshipAngle());
                 Destroy(gameObject);
             }
-            else
+            else if (LevelManager.Instance.AllFireExtinguished())
             {
                 Debug.Log("Level completed!");
-                _canMove = false;
-                transform.rotation = Quaternion.identity;
-                Vector2 contactPoint = collision.GetContact(0).point;
-                transform.position = new Vector3(contactPoint.x, contactPoint.y, 0) - LandingPosition.localPosition;
+                SnapSpaceshipToGround(collision.GetContact(0).point);
+            }
+            else
+            {
+                Debug.Log("Not all fires are extinguished");
+                SnapSpaceshipToGround(collision.GetContact(0).point);
+                _canStartMovement = true;
             }
         }
+    }
+
+    private void SnapSpaceshipToGround(Vector2 contactPoint)
+    {
+        _canMove = false;
+        transform.rotation = Quaternion.identity;
+        transform.position = new Vector3(contactPoint.x, contactPoint.y, 0) - LandingPosition.localPosition;
+        _currentSpeed = Vector3.zero;
     }
 
     private void CheckObstacles(Collision2D collision)
@@ -200,7 +219,7 @@ public class SpaceshipController : MonoBehaviour
         if (_leftButtonIsPressed)
         {
             var fire = DetectFire(LeftThruster.transform.position, LeftThruster.transform.up);
-            if(fire != null)
+            if (fire != null)
             {
                 fire.Extinguish();
             }
