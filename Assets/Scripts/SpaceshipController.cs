@@ -10,10 +10,12 @@ public class SpaceshipController : MonoBehaviour
     public float VerticalForce = 10f;
     public float HorizontalForce = 8f;
     public float RotationSpeed = 50f;
+    public float MaxRotationAngle = 50f;
 
     [Header("Componets")]
     public GameObject LeftThruster;
     public GameObject RightThruster;
+    public Transform LandingPosition;
 
     [Header("Landing")]
     public LayerMask LandingPlatformLayerMask;
@@ -42,8 +44,8 @@ public class SpaceshipController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        CheckLandingPlatform(collision.gameObject);
-        CheckObstacles(collision.gameObject);
+        CheckLandingPlatform(collision);
+        CheckObstacles(collision);
     }
     #endregion
 
@@ -106,6 +108,13 @@ public class SpaceshipController : MonoBehaviour
             }
 
             transform.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime);
+
+            float shipAngle = transform.eulerAngles.z > 180 ? -(360 - transform.eulerAngles.z) : transform.eulerAngles.z;
+
+            transform.rotation = Quaternion.Euler(
+                transform.eulerAngles.x,
+                transform.eulerAngles.y,
+                Mathf.Clamp(shipAngle, -MaxRotationAngle, MaxRotationAngle));
         }
     }
 
@@ -132,19 +141,14 @@ public class SpaceshipController : MonoBehaviour
         }
     }
 
-    private bool LayerIsInLayerMask(int layer, LayerMask layerMask)
+    private void CheckLandingPlatform(Collision2D collision)
     {
-        return layerMask == (layerMask | (1 << layer));
-    }
-
-    private void CheckLandingPlatform(GameObject objectHit)
-    {
-        if (LayerIsInLayerMask(objectHit.layer, LandingPlatformLayerMask))
+        if (LayerIsInLayerMask(collision.gameObject.layer, LandingPlatformLayerMask))
         {
             if (_currentSpeed.magnitude > MaxAllowedLandingSpeed
-                || Mathf.Abs(Vector3.Angle(Vector3.up, transform.up)) > MaxAllowedLandingAngle)
+                || GetSpaceshipAngle() > MaxAllowedLandingAngle)
             {
-                Debug.Log("Level failed, Speed = " + _currentSpeed.magnitude + " Angle = " + Mathf.Abs(Vector3.Angle(Vector3.up, transform.up)));
+                Debug.Log("Level failed, Speed = " + _currentSpeed.magnitude + " Angle = " + GetSpaceshipAngle());
                 Destroy(gameObject);
             }
             else
@@ -152,17 +156,32 @@ public class SpaceshipController : MonoBehaviour
                 Debug.Log("Level completed!");
                 _canMove = false;
                 transform.rotation = Quaternion.identity;
+                Vector2 contactPoint = collision.GetContact(0).point;
+                transform.position = new Vector3(contactPoint.x, contactPoint.y, 0) - LandingPosition.localPosition;
             }
         }
     }
 
-    private void CheckObstacles(GameObject objectHit)
+    private void CheckObstacles(Collision2D collision)
     {
-        if (LayerIsInLayerMask(objectHit.layer, ObstaclesLayerMask))
+        if (LayerIsInLayerMask(collision.gameObject.layer, ObstaclesLayerMask))
         {
             Debug.Log("Level failed, you hit an obstacle");
             Destroy(gameObject);
         }
+    }
+    #endregion
+
+    #region Utils
+
+    private bool LayerIsInLayerMask(int layer, LayerMask layerMask)
+    {
+        return layerMask == (layerMask | (1 << layer));
+    }
+
+    private float GetSpaceshipAngle()
+    {
+        return Mathf.Abs(Vector3.Angle(Vector3.up, transform.up));
     }
     #endregion
 }
