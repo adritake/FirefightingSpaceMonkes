@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
 using Photon.Realtime;
+using System;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
@@ -18,6 +19,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         DontDestroyOnLoad(gameObject);
     }
 
+    #region Login & Nickname
     public void Login()
     {
         if (!PhotonNetwork.IsConnected)
@@ -26,6 +28,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             PhotonNetwork.GameVersion = _gameVersion;
         }
     }
+    public void SetPlayerName(string name)
+    {
+        PhotonNetwork.NickName = name;
+    }
+
+    #endregion
 
     #region PUN Callbacks
 
@@ -33,6 +41,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("[Network manager]: Connected to " + PhotonNetwork.CloudRegion + " server");
         //Load Main Menu Scene
+        Debug.Log("Player name is: " + PhotonNetwork.NickName);
         SceneManager.LoadScene(1);
     }
 
@@ -45,6 +54,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     #endregion
 
     #region Room Management
+
+    public void CreateNewRoom()
+    {
+        PhotonNetwork.CreateRoom(PhotonNetwork.LocalPlayer.NickName, new RoomOptions { MaxPlayers = _coopPlayers });
+    }
 
     public void QuickPlay()
     {
