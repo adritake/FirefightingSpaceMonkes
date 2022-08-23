@@ -12,6 +12,11 @@ public class SpaceshipController : MonoBehaviour
     public float RotationSpeed = 50f;
     public float MaxRotationAngle = 50f;
 
+    [Header("Fire")]
+    public float ExtinguishRadius = 0.2f;
+    public float ExtinguishDistance = 1;
+    public LayerMask FireLayer;
+
     [Header("Componets")]
     public GameObject LeftThruster;
     public GameObject RightThruster;
@@ -46,6 +51,25 @@ public class SpaceshipController : MonoBehaviour
     {
         CheckLandingPlatform(collision);
         CheckObstacles(collision);
+    }
+
+    void FixedUpdate()
+    {
+        ExtinguishFire();
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        if (_leftButtonIsPressed)
+        {
+            Gizmos.DrawWireSphere(LeftThruster.transform.position + LeftThruster.transform.up * ExtinguishDistance, ExtinguishRadius);
+        }
+
+        if (_rightButtonIsPressed)
+        {
+            Gizmos.DrawWireSphere(RightThruster.transform.position + RightThruster.transform.up * ExtinguishDistance, ExtinguishRadius);
+        }
     }
     #endregion
 
@@ -169,6 +193,34 @@ public class SpaceshipController : MonoBehaviour
             Debug.Log("Level failed, you hit an obstacle");
             Destroy(gameObject);
         }
+    }
+
+    private void ExtinguishFire()
+    {
+        if (_leftButtonIsPressed)
+        {
+            var fire = DetectFire(LeftThruster.transform.position, LeftThruster.transform.up);
+            if(fire != null)
+            {
+                fire.Extinguish();
+            }
+        }
+
+        if (_rightButtonIsPressed)
+        {
+            var fire = DetectFire(RightThruster.transform.position, RightThruster.transform.up);
+            if (fire != null)
+            {
+                fire.Extinguish();
+            }
+        }
+    }
+
+    private Fire DetectFire(Vector2 origin, Vector2 direction)
+    {
+        var fire = Physics2D.CircleCast(origin, ExtinguishRadius, direction, ExtinguishDistance, FireLayer);
+
+        return fire.collider?.gameObject.GetComponent<Fire>();
     }
     #endregion
 
