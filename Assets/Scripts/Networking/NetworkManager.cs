@@ -10,6 +10,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     [SerializeField] private string _gameVersion = "1.0.0";
 
+    public event Action CreatedRoom;
+    public event Action JoinedRoom;
+
     public static NetworkManager Instance;
 
     private void Awake()
@@ -60,6 +63,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         PhotonNetwork.CreateRoom(PhotonNetwork.LocalPlayer.NickName, new RoomOptions { MaxPlayers = _coopPlayers });
     }
 
+    public void JoinRoom(string roomName)
+    {
+        PhotonNetwork.JoinRoom(roomName);
+    }
+
     public void QuickPlay()
     {
         if (PhotonNetwork.IsConnected)
@@ -73,26 +81,72 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         }
     }
 
-    public void LoadMatch()
+    public void LoadGame()
     {
         if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount >= 1)
         {
-            PhotonNetwork.CurrentRoom.IsOpen = false;
+            //Condition to be joinable (list)
+            //PhotonNetwork.CurrentRoom.IsOpen = false;
 
             Debug.Log("[Network Manager]: Loading match level");
-            PhotonNetwork.LoadLevel(1);
+
+            //Method called when joining a game 
+            //PhotonNetwork.LoadLevel("Level_" + 1);
+            PhotonNetwork.LoadLevel("AdriScene");
         }
     }
 
-    public override void OnJoinRandomFailed(short returnCode, string message)
+    //On Room Callbacks
+    public override void OnCreatedRoom()
     {
-        Debug.Log("[Network Manager]: Join random failed. No random room available, proceeding to create a new one");
-        PhotonNetwork.CreateRoom(PhotonNetwork.LocalPlayer.NickName, new RoomOptions { MaxPlayers = _coopPlayers });
+        Debug.Log("[Network Manager]: Created Room " + PhotonNetwork.CurrentRoom.Name);
+        //call event to enable start game (later it will be a new canvas with host player waiting for 2nd player
+        CreatedRoom?.Invoke();
     }
 
     public override void OnJoinedRoom()
     {
         Debug.Log("[Network Manager]: Joined Room " + PhotonNetwork.CurrentRoom.Name);
+        JoinedRoom?.Invoke();
+    }
+
+    public override void OnJoinRandomFailed(short returnCode, string message)
+    {
+        Debug.Log("[Network Manager]: Join random failed. Error: " + message);
+    }
+
+    public override void OnLeftRoom()
+    {
+        base.OnLeftRoom();
+    }
+
+    #endregion
+
+    #region Debug Data
+
+    public string GetRoomName()
+    {
+        if(PhotonNetwork.CurrentRoom != null)
+        {
+            return PhotonNetwork.CurrentRoom.Name;
+        }
+        else
+        {
+            Debug.LogWarning("No room joined yet");
+            return "N/A";
+        }
+    }
+
+    public string GetPlayersInRoom()
+    {
+        if(PhotonNetwork.CurrentRoom.PlayerCount <= 1)
+        {
+            return "1";
+        }
+        else
+        {
+            return PhotonNetwork.CurrentRoom.PlayerCount.ToString();
+        }
     }
 
     #endregion

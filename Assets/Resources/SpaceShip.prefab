@@ -209,9 +209,11 @@ GameObject:
   m_Component:
   - component: {fileID: 8178192373345105531}
   - component: {fileID: 8178192373345105530}
-  - component: {fileID: 8178192373345105533}
   - component: {fileID: 8178192373345105534}
   - component: {fileID: 874957229}
+  - component: {fileID: 8178192373345105533}
+  - component: {fileID: -1275953719920989984}
+  - component: {fileID: -7780119063052262831}
   m_Layer: 0
   m_Name: SpaceShip
   m_TagString: Untagged
@@ -291,39 +293,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8178192373345105533
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8178192373345105529}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 373e05109ae40bf4aac2d3c1201351ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Gravity: 2
-  VerticalForce: 5
-  HorizontalForce: 2
-  RotationSpeed: 30
-  MaxRotationAngle: 30
-  ExtinguishRadius: 0.4
-  ExtinguishDistance: 1
-  FireLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  LeftThruster: {fileID: 3270442196250245044}
-  RightThruster: {fileID: 8178192373013742333}
-  LandingPosition: {fileID: 368752371}
-  LandingPlatformLayerMask:
-    serializedVersion: 2
-    m_Bits: 64
-  MaxAllowedLandingSpeed: 4
-  MaxAllowedLandingAngle: 25
-  ObstaclesLayerMask:
-    serializedVersion: 2
-    m_Bits: 128
 --- !u!50 &8178192373345105534
 Rigidbody2D:
   serializedVersion: 4
@@ -361,6 +330,95 @@ CapsuleCollider2D:
   m_Offset: {x: 0.00041529094, y: -0.024245767}
   m_Size: {x: 0.2267182, y: 0.84600633}
   m_Direction: 0
+--- !u!114 &8178192373345105533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8178192373345105529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373e05109ae40bf4aac2d3c1201351ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Gravity: 2
+  VerticalForce: 5
+  HorizontalForce: 2
+  RotationSpeed: 30
+  MaxRotationAngle: 30
+  ExtinguishRadius: 0.4
+  ExtinguishDistance: 1
+  FireLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  LeftThruster: {fileID: 3270442196250245044}
+  RightThruster: {fileID: 8178192373013742333}
+  LandingPosition: {fileID: 368752371}
+  LandingPlatformLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  MaxAllowedLandingSpeed: 4
+  MaxAllowedLandingAngle: 25
+  ObstaclesLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+--- !u!114 &-1275953719920989984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8178192373345105529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: -7780119063052262831}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &-7780119063052262831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8178192373345105529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8efc6b1d64977384eb3405357896c656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PositionModel:
+    SynchronizeEnabled: 1
+    TeleportEnabled: 1
+    TeleportIfDistanceGreaterThan: 3
+    InterpolateOption: 2
+    InterpolateMoveTowardsSpeed: 1
+    InterpolateLerpSpeed: 1
+    ExtrapolateOption: 0
+    ExtrapolateSpeed: 1
+    ExtrapolateIncludingRoundTripTime: 1
+    ExtrapolateNumberOfStoredPositions: 1
+  m_RotationModel:
+    SynchronizeEnabled: 1
+    InterpolateOption: 1
+    InterpolateRotateTowardsSpeed: 180
+    InterpolateLerpSpeed: 5
+  m_ScaleModel:
+    SynchronizeEnabled: 0
+    InterpolateOption: 0
+    InterpolateMoveTowardsSpeed: 1
+    InterpolateLerpSpeed: 0
 --- !u!1001 &3270442195928916256
 PrefabInstance:
   m_ObjectHideFlags: 0

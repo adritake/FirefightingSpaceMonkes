@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/1_MenuScene.unity
     guid: 97ddd1c4951ffc94d8acb74064074186
   - enabled: 1
-    path: Assets/Scenes/LevelScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    path: Assets/Scenes/AdriScene.unity
+    guid: c0488da25ea6cbc409de09c2b4f6ff82
   m_configObjects: {}
