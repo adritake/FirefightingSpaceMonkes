@@ -18,8 +18,8 @@ public class SpaceshipController : MonoBehaviour
     public LayerMask FireLayer;
 
     [Header("Componets")]
-    public GameObject LeftThruster;
-    public GameObject RightThruster;
+    public Thruster LeftThruster;
+    public Thruster RightThruster;
     public Transform LandingPosition;
 
     [Header("Landing")]
@@ -66,15 +66,9 @@ public class SpaceshipController : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        if (_leftButtonIsPressed)
-        {
-            Gizmos.DrawWireSphere(LeftThruster.transform.position + LeftThruster.transform.up * ExtinguishDistance, ExtinguishRadius);
-        }
 
-        if (_rightButtonIsPressed)
-        {
-            Gizmos.DrawWireSphere(RightThruster.transform.position + RightThruster.transform.up * ExtinguishDistance, ExtinguishRadius);
-        }
+        Gizmos.DrawWireSphere(LeftThruster.transform.position + LeftThruster.transform.up * ExtinguishDistance, ExtinguishRadius);
+        Gizmos.DrawWireSphere(RightThruster.transform.position + RightThruster.transform.up * ExtinguishDistance, ExtinguishRadius);
     }
     #endregion
 
@@ -110,8 +104,8 @@ public class SpaceshipController : MonoBehaviour
     {
         if (_canMove)
         {
-            LeftThruster.SetActive(_leftButtonIsPressed);
-            RightThruster.SetActive(_rightButtonIsPressed);
+            LeftThruster.EnableThruster(_leftButtonIsPressed);
+            RightThruster.EnableThruster(_rightButtonIsPressed);
         }
     }
 
