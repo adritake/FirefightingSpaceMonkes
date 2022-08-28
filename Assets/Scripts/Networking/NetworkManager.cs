@@ -38,13 +38,18 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     #endregion
 
-    #region PUN Callbacks
+    #region PUN Master Callbacks
 
     public override void OnConnectedToMaster()
     {
         Debug.Log("[Network manager]: Connected to " + PhotonNetwork.CloudRegion + " server");
         //Load Main Menu Scene
         Debug.Log("Player name is: " + PhotonNetwork.NickName);
+        PhotonNetwork.JoinLobby();      
+    }
+
+    public override void OnJoinedLobby()
+    {
         SceneManager.LoadScene(1);
     }
 
@@ -60,6 +65,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public void CreateNewRoom()
     {
+        if (!PhotonNetwork.IsConnected) return;
         PhotonNetwork.CreateRoom(PhotonNetwork.LocalPlayer.NickName, new RoomOptions { MaxPlayers = _coopPlayers });
     }
 
@@ -96,12 +102,18 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         }
     }
 
-    //On Room Callbacks
+    #region PUN Room Methods Override
+
     public override void OnCreatedRoom()
     {
         Debug.Log("[Network Manager]: Created Room " + PhotonNetwork.CurrentRoom.Name);
         //call event to enable start game (later it will be a new canvas with host player waiting for 2nd player
         CreatedRoom?.Invoke();
+    }
+
+    public override void OnCreateRoomFailed(short returnCode, string message)
+    {
+        Debug.Log("[Network Manager]: Create room failed. Error: " + message);
     }
 
     public override void OnJoinedRoom()
@@ -119,6 +131,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         base.OnLeftRoom();
     }
+
+    #endregion
 
     #endregion
 
