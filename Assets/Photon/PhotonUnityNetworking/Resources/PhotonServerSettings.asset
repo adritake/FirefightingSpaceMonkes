@@ -41,6 +41,7 @@ MonoBehaviour:
   - RespawnSpaceship
   - RPC_EnableLeftThruster
   - RPC_EnableRightThruster
+  - RPC_ExtinguishFire
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

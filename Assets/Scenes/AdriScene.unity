@@ -2007,6 +2007,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 125965743, guid: ed15b0f34d10fbf47a9e94ce86de7a87, type: 3}
+      propertyPath: sceneViewId
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4383516009655677359, guid: ed15b0f34d10fbf47a9e94ce86de7a87, type: 3}
       propertyPath: m_Name
       value: Fire (3)
@@ -2814,6 +2818,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 125965743, guid: ed15b0f34d10fbf47a9e94ce86de7a87, type: 3}
+      propertyPath: sceneViewId
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4383516009655677359, guid: ed15b0f34d10fbf47a9e94ce86de7a87, type: 3}
       propertyPath: m_Name
       value: Fire (1)
@@ -3027,6 +3035,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 125965743, guid: ed15b0f34d10fbf47a9e94ce86de7a87, type: 3}
+      propertyPath: sceneViewId
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4383516009655677359, guid: ed15b0f34d10fbf47a9e94ce86de7a87, type: 3}
       propertyPath: m_Name
       value: Fire (2)
@@ -3084,6 +3096,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 125965743, guid: ed15b0f34d10fbf47a9e94ce86de7a87, type: 3}
+      propertyPath: sceneViewId
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4383516009655677359, guid: ed15b0f34d10fbf47a9e94ce86de7a87, type: 3}
       propertyPath: m_Name
       value: Fire

@@ -90,11 +90,13 @@ public class SpaceshipController : MonoBehaviourPunCallbacks
         {
             if (photonView.IsMine)
             {
-                photonView.RPC(nameof(RPC_EnableLeftThruster), RpcTarget.AllViaServer, true);
+                _leftButtonIsPressed = true;
+                photonView.RPC(nameof(RPC_EnableLeftThruster), RpcTarget.Others, true);
             }
             else
             {
-                photonView.RPC(nameof(RPC_EnableRightThruster), RpcTarget.AllViaServer, true);
+                _rightButtonIsPressed = true;
+                photonView.RPC(nameof(RPC_EnableRightThruster), RpcTarget.MasterClient, true);
             }
         }
 
@@ -102,11 +104,13 @@ public class SpaceshipController : MonoBehaviourPunCallbacks
         {
             if (photonView.IsMine)
             {
-                photonView.RPC(nameof(RPC_EnableLeftThruster), RpcTarget.AllViaServer, false);
+                _leftButtonIsPressed = false;
+                photonView.RPC(nameof(RPC_EnableLeftThruster), RpcTarget.Others, false);
             }
             else
             {
-                photonView.RPC(nameof(RPC_EnableRightThruster), RpcTarget.AllViaServer, false);
+                _rightButtonIsPressed = false;
+                photonView.RPC(nameof(RPC_EnableRightThruster), RpcTarget.MasterClient, false);
             }
         }
 
