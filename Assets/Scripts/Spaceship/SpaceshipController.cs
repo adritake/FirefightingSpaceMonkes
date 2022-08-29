@@ -12,6 +12,7 @@ public class SpaceshipController : MonoBehaviourPunCallbacks
     public float HorizontalForce = 8f;
     public float RotationSpeed = 50f;
     public float MaxRotationAngle = 50f;
+    public float DestroyTime;
 
     [Header("Fire")]
     public float ExtinguishRadius = 0.2f;
@@ -30,6 +31,10 @@ public class SpaceshipController : MonoBehaviourPunCallbacks
 
     [Header("Obstacles")]
     public LayerMask ObstaclesLayerMask;
+
+    [Header("VFX")]
+    public GameObject ShipExplosion;
+    public SpriteRenderer[] VisibleSprites;
 
     private Vector3 _currentSpeed;
     private bool _leftButtonIsPressed;
@@ -226,7 +231,7 @@ public class SpaceshipController : MonoBehaviourPunCallbacks
         if (LayerIsInLayerMask(collision.gameObject.layer, ObstaclesLayerMask))
         {
             Debug.Log("Level failed, you hit an obstacle");
-            Destroy(gameObject);
+            photonView.RPC(nameof(RPC_DestroyShip), RpcTarget.AllViaServer);
         }
     }
 
@@ -270,6 +275,18 @@ public class SpaceshipController : MonoBehaviourPunCallbacks
     private void RPC_EnableRightThruster(bool enable)
     {
         _rightButtonIsPressed = enable;
+    }
+
+    [PunRPC]
+    private void RPC_DestroyShip()
+    {
+        foreach(var sprite in VisibleSprites)
+        {
+            sprite.enabled = false;
+        }
+        ShipExplosion.SetActive(true);
+        _canMove = false;
+        Destroy(gameObject, DestroyTime);
     }
     #endregion
 
