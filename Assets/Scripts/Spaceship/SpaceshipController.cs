@@ -1,9 +1,10 @@
+using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpaceshipController : MonoBehaviour
+public class SpaceshipController : MonoBehaviourPunCallbacks
 {
     [Header("Spaceship parameters")]
     public float Gravity = 10f;
@@ -44,23 +45,33 @@ public class SpaceshipController : MonoBehaviour
 
     void Update()
     {
-        ReadInputs();
+        ReadInput();
         UpdateThrustersAnimation();
-        AppplyGravity();
-        ApplyRotation();
-        ApplyThrustersForce();
-        MoveSpaceship();
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            AppplyGravity();
+            ApplyRotation();
+            ApplyThrustersForce();
+            MoveSpaceship();
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        CheckLandingPlatform(collision);
-        CheckObstacles(collision);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            CheckLandingPlatform(collision);
+            CheckObstacles(collision);
+        }
     }
 
     void FixedUpdate()
     {
-        ExtinguishFire();
+        if (PhotonNetwork.IsMasterClient)
+        {
+            ExtinguishFire();
+        }
     }
 
     private void OnDrawGizmosSelected()
@@ -73,25 +84,32 @@ public class SpaceshipController : MonoBehaviour
     #endregion
 
     #region Private methods
-    private void ReadInputs()
+    private void ReadInput()
     {
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            _leftButtonIsPressed = true;
-        }
-        else if (Input.GetKeyUp(KeyCode.LeftArrow))
-        {
-            _leftButtonIsPressed = false;
+            if (photonView.IsMine)
+            {
+                photonView.RPC(nameof(RPC_EnableLeftThruster), RpcTarget.AllViaServer, true);
+            }
+            else
+            {
+                photonView.RPC(nameof(RPC_EnableRightThruster), RpcTarget.AllViaServer, true);
+            }
         }
 
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (Input.GetKeyUp(KeyCode.Space))
         {
-            _rightButtonIsPressed = true;
+            if (photonView.IsMine)
+            {
+                photonView.RPC(nameof(RPC_EnableLeftThruster), RpcTarget.AllViaServer, false);
+            }
+            else
+            {
+                photonView.RPC(nameof(RPC_EnableRightThruster), RpcTarget.AllViaServer, false);
+            }
         }
-        else if (Input.GetKeyUp(KeyCode.RightArrow))
-        {
-            _rightButtonIsPressed = false;
-        }
+
 
         if (_canStartMovement && (_rightButtonIsPressed || _leftButtonIsPressed))
         {
@@ -234,6 +252,20 @@ public class SpaceshipController : MonoBehaviour
         var fire = Physics2D.CircleCast(origin, ExtinguishRadius, direction, ExtinguishDistance, FireLayer);
 
         return fire.collider?.gameObject.GetComponent<Fire>();
+    }
+    #endregion
+
+    #region RPC
+    [PunRPC]
+    private void RPC_EnableLeftThruster(bool enable)
+    {
+        _leftButtonIsPressed = enable;
+    }
+
+    [PunRPC]
+    private void RPC_EnableRightThruster(bool enable)
+    {
+        _rightButtonIsPressed = enable;
     }
     #endregion
 
