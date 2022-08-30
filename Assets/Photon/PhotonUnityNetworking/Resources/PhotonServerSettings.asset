@@ -43,6 +43,8 @@ MonoBehaviour:
   - RPC_EnableRightThruster
   - RPC_ExtinguishFire
   - RPC_DestroyShip
+  - RPC_CompleteLevel
+  - RPC_LooseLevel
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

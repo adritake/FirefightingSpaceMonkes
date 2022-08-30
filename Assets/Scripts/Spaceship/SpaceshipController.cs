@@ -202,11 +202,12 @@ public class SpaceshipController : MonoBehaviourPunCallbacks
                 || GetSpaceshipAngle() > MaxAllowedLandingAngle)
             {
                 Debug.Log("Level failed, Speed = " + _currentSpeed.magnitude + " Angle = " + GetSpaceshipAngle());
+                LevelManager.Instance.FailLevel();
                 Destroy(gameObject);
             }
             else if (LevelManager.Instance.AllFireExtinguished())
             {
-                Debug.Log("Level completed!");
+                LevelManager.Instance.CompleteLevel();
                 SnapSpaceshipToGround(collision.GetContact(0).point);
             }
             else
@@ -230,7 +231,7 @@ public class SpaceshipController : MonoBehaviourPunCallbacks
     {
         if (LayerIsInLayerMask(collision.gameObject.layer, ObstaclesLayerMask))
         {
-            Debug.Log("Level failed, you hit an obstacle");
+            LevelManager.Instance.FailLevel();
             photonView.RPC(nameof(RPC_DestroyShip), RpcTarget.AllViaServer);
         }
     }

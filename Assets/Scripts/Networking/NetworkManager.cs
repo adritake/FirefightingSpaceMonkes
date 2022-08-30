@@ -4,7 +4,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using System;
 
-public class NetworkManager : MonoBehaviourPunCallbacks
+public class NetworkManager : PunSingleton<NetworkManager>
 {
     [SerializeField] private byte _coopPlayers = 2;
 
@@ -13,12 +13,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public event Action CreatedRoom;
     public event Action JoinedRoom;
 
-    public static NetworkManager Instance;
 
     private void Awake()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
-        Instance = this;
         DontDestroyOnLoad(gameObject);
     }
 
@@ -50,7 +48,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedLobby()
     {
-        SceneManager.LoadScene(1);
+        PunSceneManager.Instance.LoadMenuScene();
     }
 
     public override void OnDisconnected(DisconnectCause cause)
@@ -98,9 +96,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
             //Method called when joining a game 
             //PhotonNetwork.LoadLevel("Level_" + 1);
-            PhotonNetwork.LoadLevel("AdriScene");
+            PunSceneManager.Instance.LoadNextLevel();
         }
     }
+
+    #endregion
 
     #region PUN Room Methods Override
 
@@ -131,8 +131,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         base.OnLeftRoom();
     }
-
-    #endregion
 
     #endregion
 

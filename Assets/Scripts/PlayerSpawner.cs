@@ -9,6 +9,4 @@ public class PlayerSpawner : MonoBehaviour
     {
         PhotonNetwork.Instantiate(playerPrefab.name, transform.position, Quaternion.identity);
     }
-
-
 }
