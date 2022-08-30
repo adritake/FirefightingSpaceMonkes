@@ -32,5 +32,10 @@ public class LevelUIManager : Singleton<LevelUIManager>
     {
         PunSceneManager.Instance.ReloadLevel();
     }
+
+    public void OnNextLevelButtonClicked()
+    {
+        PunSceneManager.Instance.LoadNextLevel();
+    }
     #endregion
 }
