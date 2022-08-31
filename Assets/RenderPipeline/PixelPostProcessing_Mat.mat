@@ -52,17 +52,17 @@ Material:
     m_Floats:
     - _CellsAmountHorizontal: 150
     - _CellsAmountVertical: 250
-    - _CellsIntensity: 0.623
-    - _CellsRadius: 0.3
+    - _CellsIntensity: 0.356
+    - _CellsRadius: 0.36
     - _CheckerAmount: 100
     - _Float: 0
     - _LinesAmount: 200
     - _LinesAmountHorizontal: 130
     - _LinesAmountVertical: 190
     - _LinesWidth: 0.198
-    - _LinesWidthHorizontal: 0.866
-    - _LinesWidthVertical: 0.859
-    - _NoiseIntensity: 0.1
+    - _LinesWidthHorizontal: 0.9
+    - _LinesWidthVertical: 0.9
+    - _NoiseIntensity: 0.044
     - _NoiseScale: 600
     - _NoiseSpeed: 10
     - _Pixels: 550
