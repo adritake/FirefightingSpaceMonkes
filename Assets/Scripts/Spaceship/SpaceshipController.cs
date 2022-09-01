@@ -23,6 +23,10 @@ public class SpaceshipController : MonoBehaviourPunCallbacks
     public Thruster LeftThruster;
     public Thruster RightThruster;
     public Transform LandingPosition;
+    public GameObject LeftMonke;
+    public GameObject LeftMonkeOutline;
+    public GameObject RightMonke;
+    public GameObject RightMonkeOutline;
 
     [Header("Landing")]
     public LayerMask LandingPlatformLayerMask;
@@ -46,6 +50,7 @@ public class SpaceshipController : MonoBehaviourPunCallbacks
     void Awake()
     {
         _canStartMovement = true;
+        OutlinePlayerMonke();
     }
 
     void Update()
@@ -262,6 +267,24 @@ public class SpaceshipController : MonoBehaviourPunCallbacks
         var fire = Physics2D.CircleCast(origin, ExtinguishRadius, direction, ExtinguishDistance, FireLayer);
 
         return fire.collider?.gameObject.GetComponent<Fire>();
+    }
+
+    private void OutlinePlayerMonke()
+    {
+        if (photonView.IsMine)
+        {
+            LeftMonke.SetActive(false);
+            LeftMonkeOutline.SetActive(true);
+            RightMonke.SetActive(true);
+            RightMonkeOutline.SetActive(false);
+        }
+        else
+        {
+            LeftMonke.SetActive(true);
+            LeftMonkeOutline.SetActive(false);
+            RightMonke.SetActive(false);
+            RightMonkeOutline.SetActive(true);
+        }
     }
     #endregion
 
