@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -643,9 +643,9 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       platformertiles_3: -1648027862
-      platformertiles_17: 1447022708
-      platformertiles_1: 168677337
       platformertiles_20: -835001143
+      platformertiles_1: 168677337
+      platformertiles_15: 1956254858
       platformertiles_5: -1959078534
       platformertiles_12: 1339473774
       platformertiles_10: -1689741084
@@ -665,7 +665,7 @@ TextureImporter:
       platformertiles_22: -377655842
       platformertiles_9: -45148789
       platformertiles_0: -1622604499
-      platformertiles_15: 1956254858
+      platformertiles_17: 1447022708
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
