@@ -13,6 +13,16 @@ public class LevelUIManager : Singleton<LevelUIManager>
     public GameObject LooseCanvas;
     public GameObject RetryButton;
 
+    [Header("Tutorial")]
+    public TutorialText TutorialText;
+
+    #region Monobehaviour
+    void Update()
+    {
+        CheckHideTutorial();
+    }
+    #endregion
+
     #region Public methods
     public void EnableWinCanvas(bool enabled, bool enableButton)
     {
@@ -24,6 +34,17 @@ public class LevelUIManager : Singleton<LevelUIManager>
     {
         LooseCanvas.SetActive(enabled);
         RetryButton.SetActive(enableButton);
+        TutorialText.Hide();
+    }
+    #endregion
+
+    #region Private methods
+    private void CheckHideTutorial()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            TutorialText.Hide();
+        }
     }
     #endregion
 

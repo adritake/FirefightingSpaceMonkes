@@ -649,6 +649,7 @@ MonoBehaviour:
   NextLevelButton: {fileID: 1748342173}
   LooseCanvas: {fileID: 629344308}
   RetryButton: {fileID: 1248691045}
+  TutorialText: {fileID: 0}
 --- !u!1 &557336497
 GameObject:
   m_ObjectHideFlags: 0
@@ -2921,7 +2922,7 @@ TilemapCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1587938454}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
