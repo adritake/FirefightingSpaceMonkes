@@ -8,6 +8,7 @@ public class PunSceneManager : Singleton<PunSceneManager>
 {
     private int _currentLevel;
     private const string LEVEL_NAME = "Level";
+    private const string CREDIT_NAME = "Credits";
     private const string MENU_NAME = "1_MenuScene";
     private const string UTILITY_SCENE_NAME = "ReloadSceneUtility";
 
@@ -23,6 +24,11 @@ public class PunSceneManager : Singleton<PunSceneManager>
     public void LoadMenuScene()
     {
         SceneManager.LoadScene(MENU_NAME);
+    }
+
+    public void LoadCreditScene()
+    {
+        SceneManager.LoadScene(CREDIT_NAME);
     }
 
     public void ReloadLevel()

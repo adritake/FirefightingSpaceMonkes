@@ -8,18 +8,17 @@ public class MenuCanvas : MonoBehaviour
     private bool _roomJoined;
 
     public Button createRoomButton;
-    public Button joinRoomButton;
     public Button creditsButton;
-    public Button exitButton;
-    public Button startButton;
+
+    public GameObject roomCanvas;
+    public GameObject joinCanvas;
 
     public TextMeshProUGUI roomNameText;
     public TextMeshProUGUI playerNumberText;
-    public TMP_InputField _inputRoomName;
 
     private void OnEnable()
     {
-        NetworkManager.Instance.CreatedRoom += ShowStartButton;
+        NetworkManager.Instance.CreatedRoom += ShowRoomCanvas;
         NetworkManager.Instance.JoinedRoom += JoinedRoom;
     }
 
@@ -28,6 +27,7 @@ public class MenuCanvas : MonoBehaviour
     {
         _roomJoined = false;
         createRoomButton.onClick.AddListener(() => NetworkManager.Instance.CreateNewRoom());
+        creditsButton.onClick.AddListener(() => PunSceneManager.Instance.LoadCreditScene());
     }
 
     private void Update()
@@ -48,34 +48,32 @@ public class MenuCanvas : MonoBehaviour
         _roomJoined = true;
     }
 
-    public void JoinRoomButtonClicked()
-    {
-        if (!string.IsNullOrEmpty(_inputRoomName.text))
-        {
-            NetworkManager.Instance.JoinRoom(_inputRoomName.text);
-        }
-        else
-        {
-            Debug.LogError("Room name empty. Cannot join!");
-        }
-    }
-
-    public void StartGameCreated()
-    {
-        NetworkManager.Instance.LoadGame(); ;
-    }
-
-    //Enable Start button when created room
-    public void ShowStartButton()
-    {
-        startButton.gameObject.SetActive(true);
-        JoinedRoom();
-    }
-
-    //Call LoadGame when start button is created
-
+    //Call LoadGame when start button is clicked
     public void StartButtonClicked()
     {
         NetworkManager.Instance.LoadGame();
+    }
+
+    //Enable Room canvas when created button is clicked
+    public void ShowRoomCanvas()
+    {
+        roomCanvas.SetActive(true);
+        JoinedRoom();
+    }
+
+
+    //Enable Join Room canvas when join button is clicked
+    public void ShowJoinCanvas()
+    {
+        joinCanvas.SetActive(true);
+
+        //if (!string.IsNullOrEmpty(_inputRoomName.text))
+        //{
+        //    NetworkManager.Instance.JoinRoom(_inputRoomName.text);
+        //}
+        //else
+        //{
+        //    Debug.LogError("Room name empty. Cannot join!");
+        //}
     }
 }

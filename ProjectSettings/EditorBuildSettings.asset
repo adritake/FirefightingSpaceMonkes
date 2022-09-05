@@ -33,6 +33,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Level07.unity
     guid: cbcc45e660a8b7f4d9237baa9f252229
   - enabled: 1
+    path: Assets/Scenes/LevelXX.unity
+    guid: ed378d04c16e83440902d15456832bdd
+  - enabled: 1
     path: Assets/Scenes/ReloadSceneUtility.unity
     guid: 971d6a1a15aff9e48810a3cf91aa23ca
+  - enabled: 1
+    path: Assets/Scenes/Credits.unity
+    guid: 1e032cee39420214cad054d9195b0a5e
   m_configObjects: {}
