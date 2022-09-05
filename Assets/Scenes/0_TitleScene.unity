@@ -1789,6 +1789,10 @@ PrefabInstance:
       propertyPath: m_RenderMode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4123693204639549638, guid: 18b40de2fc7af074b840444d0d5a9e3a, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4123693204639549641, guid: 18b40de2fc7af074b840444d0d5a9e3a, type: 3}
       propertyPath: m_Name
       value: TitleCanvas
