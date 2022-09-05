@@ -439,6 +439,7 @@ MonoBehaviour:
   NextLevelButton: {fileID: 1748342173}
   LooseCanvas: {fileID: 629344308}
   RetryButton: {fileID: 1248691045}
+  TutorialText: {fileID: 0}
 --- !u!1 &557336497
 GameObject:
   m_ObjectHideFlags: 0
@@ -3415,8 +3416,8 @@ Canvas:
   m_GameObject: {fileID: 1318671558}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 1482642683}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1

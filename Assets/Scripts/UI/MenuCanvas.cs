@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 
 public class MenuCanvas : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class MenuCanvas : MonoBehaviour
 
     public GameObject roomCanvas;
     public GameObject joinCanvas;
+    public GameObject monkes;
 
     public TextMeshProUGUI roomNameText;
     public TextMeshProUGUI playerNumberText;
@@ -62,14 +64,18 @@ public class MenuCanvas : MonoBehaviour
     //Enable Room canvas when created button is clicked
     public void ShowRoomCanvas()
     {
+        gameObject.SetActive(false);
         roomCanvas.SetActive(true);
+        monkes.SetActive(false);
     }
 
 
     //Enable Join Room canvas when join button is clicked
     public void ShowJoinCanvas()
     {
+        gameObject.SetActive(false);
         joinCanvas.SetActive(true);
+        monkes.SetActive(false);
     }
 
     #endregion

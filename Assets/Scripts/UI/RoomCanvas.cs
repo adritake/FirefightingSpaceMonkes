@@ -2,11 +2,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Photon.Realtime;
+using System.Collections;
 
 public class RoomCanvas : MonoBehaviour
 {
     public GameObject menuCanvas;
+    public GameObject monkes;
+
     public Button startButton;
+    public Button menuButton;
     private bool readyToStart = false;
 
     public TextMeshProUGUI joinRoomText;
@@ -32,6 +36,7 @@ public class RoomCanvas : MonoBehaviour
     private void Start()
     {
         joinRoomText.text = "waiting for a monke comrade...";
+        menuButton.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -51,6 +56,8 @@ public class RoomCanvas : MonoBehaviour
         //Show Menu & Left Room
         NetworkManager.Instance.LeaveRoom();
         gameObject.SetActive(false);
+        menuCanvas.SetActive(true);
+        monkes.SetActive(true);
     }
 
     //Call LoadGame when start button is clicked
@@ -64,6 +71,7 @@ public class RoomCanvas : MonoBehaviour
         if (NetworkManager.Instance.IsPlayerMaster())
         {
             player1Name.text = NetworkManager.Instance.GetLocalPlayer().NickName;
+            menuButton.gameObject.SetActive(true);
         }
         else
         {
@@ -79,6 +87,7 @@ public class RoomCanvas : MonoBehaviour
         player2Sprite.color = Color.white;
         player2Name.gameObject.SetActive(true);
         player2Name.text = player.NickName;
+        menuButton.gameObject.SetActive(true);
 }
 
     private void OtherPlayerLeft()

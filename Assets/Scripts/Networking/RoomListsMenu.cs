@@ -11,22 +11,40 @@ public class RoomListsMenu : MonoBehaviourPunCallbacks
 
     private List<ListedRoom> _listedRooms = new List<ListedRoom>();
 
+    private void Awake()
+    {
+        PhotonNetwork.LeaveLobby();      
+    }
+
     public override void OnEnable()
     {
         base.OnEnable();
+        PhotonNetwork.JoinLobby();
+    }
 
-        foreach (ListedRoom room in _listedRooms)
+    public override void OnDisable()
+    {
+        base.OnDisable();
+        if (_listedRooms.Count > 0)
         {
-            Destroy(room.gameObject);
+            foreach (ListedRoom room in _listedRooms)
+            {
+                Destroy(room.gameObject);
+            }
+            _listedRooms.Clear();
         }
-        _listedRooms.Clear();
-
-        PhotonNetwork.LeaveLobby();
     }
 
     public override void OnLeftLobby()
     {
-        PhotonNetwork.JoinLobby();
+        if (_listedRooms.Count > 0)
+        {
+            foreach (ListedRoom room in _listedRooms)
+            {
+                Destroy(room.gameObject);
+            }
+            _listedRooms.Clear();
+        }
     }
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)

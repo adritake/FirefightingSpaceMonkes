@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using Photon.Pun;
 using Photon.Realtime;
 using System;
+using System.Collections;
 
 public class NetworkManager : PunSingleton<NetworkManager>
 {
@@ -82,6 +83,12 @@ public class NetworkManager : PunSingleton<NetworkManager>
 
     public void LeaveRoom()
     {
+        StartCoroutine(LeaveRoomCoroutine());
+    }
+
+    private IEnumerator LeaveRoomCoroutine()
+    {
+        yield return new WaitForSeconds(1f);
         PhotonNetwork.LeaveRoom();
     }
 
