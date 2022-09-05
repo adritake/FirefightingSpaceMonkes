@@ -6,12 +6,27 @@ using Photon.Realtime;
 
 public class ListedRoom : MonoBehaviour
 {
+    [Header("Listed Room properties")]
     [SerializeField] private TextMeshProUGUI _listedRoomText;
     public RoomInfo RoomInfo { get; private set; }
+
+    [Header("Join Canvas reference")]
+    public JoinCanvas joinCanvas;
+
+    private void Start()
+    {
+        joinCanvas = FindObjectOfType<JoinCanvas>();
+    }
 
     public void SetRoomInfo(RoomInfo roomInfo)
     {
         RoomInfo = roomInfo;
         _listedRoomText.text = roomInfo.Name + " - " + roomInfo.PlayerCount + " i " + roomInfo.MaxPlayers;
+    }
+
+    public void JoinSelectedRoom()
+    {
+        joinCanvas.ShowRoomCanvas();
+        NetworkManager.Instance.JoinRoom(RoomInfo.Name);
     }
 }

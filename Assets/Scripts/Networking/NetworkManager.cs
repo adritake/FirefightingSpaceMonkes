@@ -7,18 +7,24 @@ using System;
 public class NetworkManager : PunSingleton<NetworkManager>
 {
     [SerializeField] private byte _coopPlayers = 2;
+    private int _roomIndex = 0;
 
     [SerializeField] private string _gameVersion = "1.0.0";
 
     public event Action CreatedRoom;
     public event Action JoinedRoom;
+    public event Action LeftRoom;
+    public event Action<Player> OtherJoinRoom;
+    public event Action OtherLeftRoom;
 
-
+    #region Monobehaviour
     private void Awake()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
         DontDestroyOnLoad(gameObject);
     }
+
+    #endregion
 
     #region Login & Nickname
     public void Login()
@@ -44,11 +50,12 @@ public class NetworkManager : PunSingleton<NetworkManager>
         //Load Main Menu Scene
         Debug.Log("Player name is: " + PhotonNetwork.NickName);
         PhotonNetwork.JoinLobby();      
+        PunSceneManager.Instance.LoadMenuScene();   
     }
 
     public override void OnJoinedLobby()
     {
-        PunSceneManager.Instance.LoadMenuScene();
+        Debug.Log("Joined to the lobby");
     }
 
     public override void OnDisconnected(DisconnectCause cause)
@@ -64,12 +71,18 @@ public class NetworkManager : PunSingleton<NetworkManager>
     public void CreateNewRoom()
     {
         if (!PhotonNetwork.IsConnected) return;
-        PhotonNetwork.CreateRoom(PhotonNetwork.LocalPlayer.NickName, new RoomOptions { MaxPlayers = _coopPlayers });
+        _roomIndex++;
+        PhotonNetwork.CreateRoom(PhotonNetwork.LocalPlayer.NickName + "_" + _roomIndex, new RoomOptions { MaxPlayers = _coopPlayers });
     }
 
     public void JoinRoom(string roomName)
     {
         PhotonNetwork.JoinRoom(roomName);
+    }
+
+    public void LeaveRoom()
+    {
+        PhotonNetwork.LeaveRoom();
     }
 
     public void QuickPlay()
@@ -129,12 +142,35 @@ public class NetworkManager : PunSingleton<NetworkManager>
 
     public override void OnLeftRoom()
     {
-        base.OnLeftRoom();
+        Debug.Log("[Network Manager]: Left Room");
+        LeftRoom?.Invoke();
+    }
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        Debug.Log("[Netwoek Manager]: Player " + newPlayer.NickName + " entered the room");
+        OtherJoinRoom?.Invoke(newPlayer);
+    }
+
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        Debug.Log("[Netwoek Manager]: Player " + otherPlayer.NickName + " left the room");
+        OtherLeftRoom?.Invoke();
     }
 
     #endregion
 
-    #region Debug Data
+    #region Getters
+
+    public bool IsPlayerMaster()
+    {
+        return PhotonNetwork.IsMasterClient;
+    }
+
+    public Player GetMasterPlayer()
+    {
+        return PhotonNetwork.MasterClient;
+    }
 
     public string GetRoomName()
     {
@@ -147,6 +183,11 @@ public class NetworkManager : PunSingleton<NetworkManager>
             Debug.LogWarning("No room joined yet");
             return "N/A";
         }
+    }
+
+    public Player GetLocalPlayer()
+    {
+        return PhotonNetwork.LocalPlayer;
     }
 
     public string GetPlayersInRoom()

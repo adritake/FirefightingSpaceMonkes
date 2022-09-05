@@ -11,6 +11,17 @@ public class RoomListsMenu : MonoBehaviourPunCallbacks
 
     private List<ListedRoom> _listedRooms = new List<ListedRoom>();
 
+    public override void OnEnable()
+    {
+        base.OnEnable();
+        PhotonNetwork.LeaveLobby();
+    }
+
+    public override void OnLeftLobby()
+    {
+        PhotonNetwork.JoinLobby();
+    }
+
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
         foreach (RoomInfo info in roomList)

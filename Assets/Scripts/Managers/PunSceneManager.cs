@@ -42,6 +42,7 @@ public class PunSceneManager : Singleton<PunSceneManager>
     public void LoadCurrentLevel()
     {
         if (PhotonNetwork.IsMasterClient)
+
         {
             PhotonNetwork.LoadLevel(GetLevelName());
         }

@@ -5,7 +5,7 @@ using TMPro;
 
 public class MenuCanvas : MonoBehaviour
 {
-    private bool _roomJoined;
+    [SerializeField] private bool _roomJoined;
 
     public Button createRoomButton;
     public Button creditsButton;
@@ -16,12 +16,20 @@ public class MenuCanvas : MonoBehaviour
     public TextMeshProUGUI roomNameText;
     public TextMeshProUGUI playerNumberText;
 
+    #region Monobehaviour
     private void OnEnable()
     {
         NetworkManager.Instance.CreatedRoom += ShowRoomCanvas;
         NetworkManager.Instance.JoinedRoom += JoinedRoom;
+        NetworkManager.Instance.LeftRoom += LeftRoom;
     }
 
+    private void OnDisable()
+    {
+        NetworkManager.Instance.CreatedRoom -= ShowRoomCanvas;
+        NetworkManager.Instance.JoinedRoom -= JoinedRoom;
+        NetworkManager.Instance.LeftRoom -= LeftRoom;
+    }
 
     private void Start()
     {
@@ -36,29 +44,25 @@ public class MenuCanvas : MonoBehaviour
         {
             DebugUIUpdate(NetworkManager.Instance.GetRoomName(), NetworkManager.Instance.GetPlayersInRoom());
         }
+        else
+        {
+            DebugUIUpdate("none", "000");
+        }
     }
 
+    #endregion
+
+    #region UI Management
     private void DebugUIUpdate(string name, string playerNumber)
     {
         roomNameText.text = name;
         playerNumberText.text = playerNumber;
-    }
-    private void JoinedRoom()
-    {
-        _roomJoined = true;
-    }
-
-    //Call LoadGame when start button is clicked
-    public void StartButtonClicked()
-    {
-        NetworkManager.Instance.LoadGame();
     }
 
     //Enable Room canvas when created button is clicked
     public void ShowRoomCanvas()
     {
         roomCanvas.SetActive(true);
-        JoinedRoom();
     }
 
 
@@ -66,14 +70,20 @@ public class MenuCanvas : MonoBehaviour
     public void ShowJoinCanvas()
     {
         joinCanvas.SetActive(true);
-
-        //if (!string.IsNullOrEmpty(_inputRoomName.text))
-        //{
-        //    NetworkManager.Instance.JoinRoom(_inputRoomName.text);
-        //}
-        //else
-        //{
-        //    Debug.LogError("Room name empty. Cannot join!");
-        //}
     }
+
+    #endregion
+
+    #region Setters
+    private void JoinedRoom()
+    {
+        _roomJoined = true;
+    }
+
+    private void LeftRoom()
+    {
+        _roomJoined = false;
+    }
+
+    #endregion
 }
