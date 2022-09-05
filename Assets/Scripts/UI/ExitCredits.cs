@@ -6,9 +6,14 @@ public class ExitCredits : MonoBehaviour
 {
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape) || Input.GetMouseButtonDown(0))
+        if(Input.GetKeyDown(KeyCode.Escape))
         {
-            PunSceneManager.Instance.LoadMenuScene();
+            LoadMenu();
         }
+    }
+
+    public void LoadMenu()
+    {
+        PunSceneManager.Instance.LoadMenuScene();
     }
 }
