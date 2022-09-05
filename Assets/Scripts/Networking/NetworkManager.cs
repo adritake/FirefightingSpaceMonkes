@@ -150,14 +150,15 @@ public class NetworkManager : PunSingleton<NetworkManager>
     {
         Debug.Log("[Netwoek Manager]: Player " + newPlayer.NickName + " entered the room");
         OtherJoinRoom?.Invoke(newPlayer);
-        PhotonNetwork.CurrentRoom.IsVisible = false;
+
+        if(PhotonNetwork.CurrentRoom.PlayerCount >= PhotonNetwork.CurrentRoom.MaxPlayers) PhotonNetwork.CurrentRoom.IsVisible = false;
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         Debug.Log("[Netwoek Manager]: Player " + otherPlayer.NickName + " left the room");
         OtherLeftRoom?.Invoke();
-        PhotonNetwork.CurrentRoom.IsVisible = true;
+        if(PhotonNetwork.CurrentRoom.PlayerCount < PhotonNetwork.CurrentRoom.MaxPlayers) PhotonNetwork.CurrentRoom.IsVisible = true;
     }
 
     #endregion

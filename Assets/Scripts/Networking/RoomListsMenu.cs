@@ -14,6 +14,13 @@ public class RoomListsMenu : MonoBehaviourPunCallbacks
     public override void OnEnable()
     {
         base.OnEnable();
+
+        foreach (ListedRoom room in _listedRooms)
+        {
+            Destroy(room.gameObject);
+        }
+        _listedRooms.Clear();
+
         PhotonNetwork.LeaveLobby();
     }
 
