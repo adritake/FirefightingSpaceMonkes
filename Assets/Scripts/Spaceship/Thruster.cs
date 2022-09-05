@@ -5,12 +5,13 @@ using UnityEngine;
 public class Thruster : MonoBehaviour
 {
     public ParticleSystem Particles;
+    public bool StartEnabled = false;
 
     private bool _particlesPlaying;
 
     private void Start()
     {
-        EnableThruster(false);
+        EnableThruster(StartEnabled);
     }
 
     public void EnableThruster(bool enabled)
