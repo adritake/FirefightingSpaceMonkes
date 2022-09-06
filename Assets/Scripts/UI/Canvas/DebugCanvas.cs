@@ -1,34 +1,23 @@
-using System;
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using TMPro;
 
-public class MenuCanvas : MonoBehaviour
+public class DebugCanvas : MonoBehaviour
 {
     [SerializeField] private bool _roomJoined;
-
-    public Button createRoomButton;
-    public Button creditsButton;
-
-    public GameObject roomCanvas;
-    public GameObject joinCanvas;
-    public GameObject monkes;
 
     public TextMeshProUGUI roomNameText;
     public TextMeshProUGUI playerNumberText;
 
-    #region Monobehaviour
     private void OnEnable()
     {
-        NetworkManager.Instance.CreatedRoom += ShowRoomCanvas;
         NetworkManager.Instance.JoinedRoom += JoinedRoom;
         NetworkManager.Instance.LeftRoom += LeftRoom;
     }
 
     private void OnDisable()
     {
-        NetworkManager.Instance.CreatedRoom -= ShowRoomCanvas;
         NetworkManager.Instance.JoinedRoom -= JoinedRoom;
         NetworkManager.Instance.LeftRoom -= LeftRoom;
     }
@@ -36,8 +25,6 @@ public class MenuCanvas : MonoBehaviour
     private void Start()
     {
         _roomJoined = false;
-        createRoomButton.onClick.AddListener(() => NetworkManager.Instance.CreateNewRoom());
-        creditsButton.onClick.AddListener(() => PunSceneManager.Instance.LoadCreditScene());
     }
 
     private void Update()
@@ -52,33 +39,11 @@ public class MenuCanvas : MonoBehaviour
         }
     }
 
-    #endregion
-
-    #region UI Management
     private void DebugUIUpdate(string name, string playerNumber)
     {
         roomNameText.text = name;
         playerNumberText.text = playerNumber;
     }
-
-    //Enable Room canvas when created button is clicked
-    public void ShowRoomCanvas()
-    {
-        gameObject.SetActive(false);
-        roomCanvas.SetActive(true);
-        monkes.SetActive(false);
-    }
-
-
-    //Enable Join Room canvas when join button is clicked
-    public void ShowJoinCanvas()
-    {
-        gameObject.SetActive(false);
-        joinCanvas.SetActive(true);
-        monkes.SetActive(false);
-    }
-
-    #endregion
 
     #region Setters
     private void JoinedRoom()

@@ -1498,10 +1498,14 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1482642683}
-    - target: {fileID: 593745514436611974, guid: ebab18e990b6dd24b99fd02af46de7c0, type: 3}
-      propertyPath: m_RenderMode
-      value: 1
-      objectReference: {fileID: 0}
+    - target: {fileID: 7680679265956775282, guid: ebab18e990b6dd24b99fd02af46de7c0, type: 3}
+      propertyPath: roomNameText
+      value: 
+      objectReference: {fileID: 1445282805}
+    - target: {fileID: 7680679265956775282, guid: ebab18e990b6dd24b99fd02af46de7c0, type: 3}
+      propertyPath: playerNumberText
+      value: 
+      objectReference: {fileID: 166895340}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ebab18e990b6dd24b99fd02af46de7c0, type: 3}
 --- !u!1001 &1447253408064778055
