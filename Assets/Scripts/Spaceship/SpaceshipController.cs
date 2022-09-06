@@ -235,7 +235,8 @@ public class SpaceshipController : MonoBehaviourPunCallbacks
     {
         _canMove = false;
         transform.rotation = Quaternion.identity;
-        transform.position = new Vector3(contactPoint.x, contactPoint.y, 0) - LandingPosition.localPosition;
+        Vector3 displacement = LandingPosition.position - transform.position;
+        transform.position = new Vector3(contactPoint.x, contactPoint.y, 0) - displacement;
         _currentSpeed = Vector3.zero;
     }
 
