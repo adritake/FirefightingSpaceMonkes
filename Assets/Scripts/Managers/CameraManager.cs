@@ -20,32 +20,35 @@ public class CameraManager : MonoBehaviour
 
     private void FollowTarget()
     {
-        Vector2 newCameraPosition = Target.position;
-
-        float maxXLimit = CameraOrigin.position.x + MovementPlaneSize.x / 2;
-        float minXLimit = CameraOrigin.position.x - MovementPlaneSize.x / 2;
-        float maxYLimit = CameraOrigin.position.y + MovementPlaneSize.y / 2;
-        float minYLimit = CameraOrigin.position.y - MovementPlaneSize.y / 2;
-
-        if (Target.position.x > maxXLimit)
+        if (Target)
         {
-            newCameraPosition.x = maxXLimit;
-        }
-        else if (Target.position.x < minXLimit)
-        {
-            newCameraPosition.x = minXLimit;
-        }
+            Vector2 newCameraPosition = Target.position;
 
-        if (Target.position.y > maxYLimit)
-        {
-            newCameraPosition.y = maxYLimit;
-        }
-        else if (Target.position.y < minYLimit)
-        {
-            newCameraPosition.y = minYLimit;
-        }
+            float maxXLimit = CameraOrigin.position.x + MovementPlaneSize.x / 2;
+            float minXLimit = CameraOrigin.position.x - MovementPlaneSize.x / 2;
+            float maxYLimit = CameraOrigin.position.y + MovementPlaneSize.y / 2;
+            float minYLimit = CameraOrigin.position.y - MovementPlaneSize.y / 2;
 
-        _mainCamera.transform.position = new Vector3(newCameraPosition.x, newCameraPosition.y, _mainCamera.transform.position.z);
+            if (Target.position.x > maxXLimit)
+            {
+                newCameraPosition.x = maxXLimit;
+            }
+            else if (Target.position.x < minXLimit)
+            {
+                newCameraPosition.x = minXLimit;
+            }
+
+            if (Target.position.y > maxYLimit)
+            {
+                newCameraPosition.y = maxYLimit;
+            }
+            else if (Target.position.y < minYLimit)
+            {
+                newCameraPosition.y = minYLimit;
+            }
+
+            _mainCamera.transform.position = new Vector3(newCameraPosition.x, newCameraPosition.y, _mainCamera.transform.position.z);
+        }
     }
 
     private void OnDrawGizmosSelected()

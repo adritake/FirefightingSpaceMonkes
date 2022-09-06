@@ -41,7 +41,7 @@ public class LevelUIManager : Singleton<LevelUIManager>
     #region Private methods
     private void CheckHideTutorial()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (TutorialText && Input.GetKeyDown(KeyCode.Space))
         {
             TutorialText.Hide();
         }
