@@ -208,7 +208,7 @@ public class SpaceshipController : MonoBehaviourPunCallbacks
             {
                 Debug.Log("Level failed, Speed = " + _currentSpeed.magnitude + " Angle = " + GetSpaceshipAngle());
                 LevelManager.Instance.FailLevel();
-                Destroy(gameObject);
+                photonView.RPC(nameof(RPC_DestroyShip), RpcTarget.AllViaServer);
             }
             else if (LevelManager.Instance.AllFireExtinguished())
             {
