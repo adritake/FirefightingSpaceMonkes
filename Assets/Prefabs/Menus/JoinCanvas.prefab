@@ -705,6 +705,7 @@ MonoBehaviour:
   menuCanvas: {fileID: 0}
   roomCanvas: {fileID: 0}
   monkes: {fileID: 0}
+  leaveJoinSound: {fileID: 8300000, guid: 96e459c0460738547ada0b8200cece60, type: 3}
 --- !u!1 &5759469875555380968
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,6 +11,8 @@ public class LinkButton : MonoBehaviour
 
     private Image _image;
 
+    public AudioClip linkSound;
+
     private void Awake()
     {
         _image = GetComponent<Image>();
@@ -26,6 +28,7 @@ public class LinkButton : MonoBehaviour
 
     public void OpenLink()
     {
+        AudioManager.Instance.PlaySound(linkSound);
         Application.OpenURL(URL);
     }
 }

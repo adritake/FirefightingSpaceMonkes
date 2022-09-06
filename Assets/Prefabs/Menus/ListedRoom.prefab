@@ -304,3 +304,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _listedRoomText: {fileID: 3712377540250874894}
+  joinCanvas: {fileID: 0}
+  buttonSound: {fileID: 8300000, guid: f3f7593c39f8e554f9cd41b709833e3e, type: 3}

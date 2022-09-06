@@ -109,13 +109,9 @@ public class NetworkManager : PunSingleton<NetworkManager>
     {
         if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount >= 1)
         {
-            //Condition to be joinable (list)
-            //PhotonNetwork.CurrentRoom.IsOpen = false;
-
             Debug.Log("[Network Manager]: Loading match level");
 
             //Method called when joining a game 
-            //PhotonNetwork.LoadLevel("Level_" + 1);
             PunSceneManager.Instance.LoadNextLevel();
         }
     }

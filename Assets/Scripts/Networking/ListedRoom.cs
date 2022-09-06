@@ -13,6 +13,9 @@ public class ListedRoom : MonoBehaviour
     [Header("Join Canvas reference")]
     public JoinCanvas joinCanvas;
 
+    [Header("Button Sound")]
+    public AudioClip buttonSound;
+
     private void Start()
     {
         joinCanvas = FindObjectOfType<JoinCanvas>();
@@ -26,6 +29,7 @@ public class ListedRoom : MonoBehaviour
 
     public void JoinSelectedRoom()
     {
+        AudioManager.Instance.PlaySound(buttonSound);
         joinCanvas.ShowRoomCanvas();
         NetworkManager.Instance.JoinRoom(RoomInfo.Name);
     }

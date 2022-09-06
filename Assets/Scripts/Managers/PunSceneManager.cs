@@ -12,6 +12,8 @@ public class PunSceneManager : Singleton<PunSceneManager>
     private const string MENU_NAME = "1_MenuScene";
     private const string UTILITY_SCENE_NAME = "ReloadSceneUtility";
 
+    public AudioClip startSound;
+
     #region MonoBehaviour
     private void Start()
     {
@@ -53,6 +55,7 @@ public class PunSceneManager : Singleton<PunSceneManager>
         if (PhotonNetwork.IsMasterClient)
         {
             _currentLevel++;
+            AudioManager.Instance.PlaySound(startSound);
             PhotonNetwork.LoadLevel(GetLevelName());
         }
     }

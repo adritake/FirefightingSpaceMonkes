@@ -1519,6 +1519,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MenuCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 1447253409041882481, guid: 020cfc0a2576bca48a34c7790a2f6f9f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1447253409041882492, guid: 020cfc0a2576bca48a34c7790a2f6f9f, type: 3}
       propertyPath: monkes
       value: 
@@ -1535,6 +1539,10 @@ PrefabInstance:
       propertyPath: roomNameText
       value: 
       objectReference: {fileID: 1445282805}
+    - target: {fileID: 1447253409041882492, guid: 020cfc0a2576bca48a34c7790a2f6f9f, type: 3}
+      propertyPath: joinRoomButton
+      value: 
+      objectReference: {fileID: 1447253408064778056}
     - target: {fileID: 1447253409041882492, guid: 020cfc0a2576bca48a34c7790a2f6f9f, type: 3}
       propertyPath: playerNumberText
       value: 
@@ -1637,6 +1645,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 020cfc0a2576bca48a34c7790a2f6f9f, type: 3}
+--- !u!114 &1447253408064778056 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1447253408074814148, guid: 020cfc0a2576bca48a34c7790a2f6f9f, type: 3}
+  m_PrefabInstance: {fileID: 1447253408064778055}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5759469875778854508
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1768,6 +1787,10 @@ PrefabInstance:
     - target: {fileID: 8596275215581546827, guid: cd20952903b57c047b4be2af87e64289, type: 3}
       propertyPath: m_Name
       value: RoomCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 8596275215581546827, guid: cd20952903b57c047b4be2af87e64289, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8596275215581546865, guid: cd20952903b57c047b4be2af87e64289, type: 3}
       propertyPath: monkes

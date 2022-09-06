@@ -1474,6 +1474,9 @@ MonoBehaviour:
   player1Name: {fileID: 8596275215481609466}
   player2Name: {fileID: 8596275213709584977}
   player2Sprite: {fileID: 8596275214923986218}
+  startSound: {fileID: 8300000, guid: a55b9c0c0b9c9ab4e81d0c840e5a5835, type: 3}
+  leaveRoomSound: {fileID: 8300000, guid: 96e459c0460738547ada0b8200cece60, type: 3}
+  playerJoinedSound: {fileID: 8300000, guid: 53635f2fba9b6e042b41a01b1dbed5ae, type: 3}
 --- !u!1 &8596275215633422526
 GameObject:
   m_ObjectHideFlags: 0

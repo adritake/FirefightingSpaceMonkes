@@ -949,14 +949,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 316d3f2ae65575e4c898e808a7f6ce98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _roomJoined: 0
   createRoomButton: {fileID: 1447253409886344309}
+  joinRoomButton: {fileID: 0}
   creditsButton: {fileID: 1447253408258045940}
   roomCanvas: {fileID: 0}
   joinCanvas: {fileID: 0}
   monkes: {fileID: 0}
-  roomNameText: {fileID: 0}
-  playerNumberText: {fileID: 0}
+  buttonClip: {fileID: 8300000, guid: f3f7593c39f8e554f9cd41b709833e3e, type: 3}
 --- !u!1 &1447253409111981744
 GameObject:
   m_ObjectHideFlags: 0

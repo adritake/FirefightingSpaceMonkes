@@ -961,6 +961,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb0f1b548ca59742a3401851a104c3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  menuSound: {fileID: 8300000, guid: 96e459c0460738547ada0b8200cece60, type: 3}
 --- !u!1 &545078911
 GameObject:
   m_ObjectHideFlags: 0
@@ -1015,6 +1016,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   URL: https://adritake.itch.io/
   BlinkTime: 0.5
+  linkSound: {fileID: 8300000, guid: ff8bc6a5658763d439fb8662bc622031, type: 3}
 --- !u!114 &545078914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2562,6 +2564,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   URL: https://ritosalgado.itch.io/
   BlinkTime: 0.5
+  linkSound: {fileID: 8300000, guid: ff8bc6a5658763d439fb8662bc622031, type: 3}
 --- !u!114 &2115556708
 MonoBehaviour:
   m_ObjectHideFlags: 0

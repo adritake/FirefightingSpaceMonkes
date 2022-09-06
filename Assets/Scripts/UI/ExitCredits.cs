@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ExitCredits : MonoBehaviour
 {
+    public AudioClip menuSound;
+
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Escape))
@@ -14,6 +16,7 @@ public class ExitCredits : MonoBehaviour
 
     public void LoadMenu()
     {
+        AudioManager.Instance.PlaySound(menuSound);
         PunSceneManager.Instance.LoadMenuScene();
     }
 }

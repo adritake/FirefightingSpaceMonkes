@@ -19,6 +19,9 @@ public class RoomCanvas : MonoBehaviour
 
     public Image player2Sprite;
 
+    public AudioClip leaveRoomSound;
+    public AudioClip playerJoinedSound;
+
     private void OnEnable()
     {
         NetworkManager.Instance.JoinedRoom += PlayerJoined;
@@ -58,6 +61,7 @@ public class RoomCanvas : MonoBehaviour
         gameObject.SetActive(false);
         menuCanvas.SetActive(true);
         monkes.SetActive(true);
+        AudioManager.Instance.PlaySound(leaveRoomSound);
     }
 
     //Call LoadGame when start button is clicked
@@ -88,6 +92,7 @@ public class RoomCanvas : MonoBehaviour
         player2Name.gameObject.SetActive(true);
         player2Name.text = player.NickName;
         menuButton.gameObject.SetActive(true);
+        AudioManager.Instance.PlaySound(playerJoinedSound);
 }
 
     private void OtherPlayerLeft()
@@ -101,5 +106,6 @@ public class RoomCanvas : MonoBehaviour
         player2Sprite.color = Color.black;
         player2Name.gameObject.SetActive(false);
         player2Name.text = "player 2";
+        AudioManager.Instance.PlaySound(leaveRoomSound);
     }
 }
