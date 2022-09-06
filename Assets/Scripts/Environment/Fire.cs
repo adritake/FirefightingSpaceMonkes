@@ -1,12 +1,17 @@
 using Photon.Pun;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Fire : MonoBehaviourPunCallbacks
 {
     public GameObject FireLoop;
     public GameObject FireExtinguish;
+
+    private Collider _collider;
+
+    private void Awake()
+    {
+        _collider = GetComponent<Collider>();
+    }
 
     public void Extinguish()
     {
@@ -18,6 +23,7 @@ public class Fire : MonoBehaviourPunCallbacks
     {
         FireLoop.SetActive(false);
         FireExtinguish.SetActive(true);
-        Destroy(gameObject, 2);
+        _collider.enabled = false;
+        Destroy(gameObject, 1);
     }
-}
+} 
