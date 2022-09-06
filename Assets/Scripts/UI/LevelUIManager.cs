@@ -14,7 +14,7 @@ public class LevelUIManager : Singleton<LevelUIManager>
     public RemainingFires RemainingFires;
 
     [Header("Tutorial")]
-    public TutorialText TutorialText;
+    public TutorialText[] TutorialTexts;
 
     #region Monobehaviour
     void Update()
@@ -34,7 +34,7 @@ public class LevelUIManager : Singleton<LevelUIManager>
     {
         LooseCanvas.SetActive(enabled);
         RetryButton.SetActive(enableButton);
-        TutorialText.Hide();
+        HideTutorialTexts();
     }
 
     public void SetRemainingFires(int amount)
@@ -51,9 +51,17 @@ public class LevelUIManager : Singleton<LevelUIManager>
     #region Private methods
     private void CheckHideTutorial()
     {
-        if (TutorialText && Input.GetKeyDown(KeyCode.Space))
+        if (TutorialTexts.Length > 0 && Input.GetKeyDown(KeyCode.Space))
         {
-            TutorialText.Hide();
+            HideTutorialTexts();
+        }
+    }
+
+    private void HideTutorialTexts()
+    {
+        foreach(var tutorial in TutorialTexts)
+        {
+            tutorial.Hide();
         }
     }
     #endregion
