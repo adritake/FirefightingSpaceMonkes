@@ -59,14 +59,14 @@ namespace FFSM
             }
         }
 
-    private void HideTutorialTexts()
-    {
-        foreach(var tutorial in TutorialTexts)
+        private void HideTutorialTexts()
         {
-            tutorial.Hide();
+            foreach(var tutorial in TutorialTexts)
+            {
+                tutorial.Hide();
+            }
         }
-    }
-    #endregion
+        #endregion
 
         #region Events
         public void OnRetryButtonClicked()
