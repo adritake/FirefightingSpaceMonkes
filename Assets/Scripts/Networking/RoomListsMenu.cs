@@ -4,73 +4,84 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RoomListsMenu : MonoBehaviourPunCallbacks
+namespace FFSM
 {
-    [SerializeField] private ListedRoom _roomList;
-    [SerializeField] private Transform _contentParent;
-
-    private List<ListedRoom> _listedRooms = new List<ListedRoom>();
-
-    private void Awake()
+    public class RoomListsMenu : MonoBehaviourPunCallbacks
     {
-        PhotonNetwork.LeaveLobby();      
-    }
+        [Header("Room List Prefab")]
+        [SerializeField] private ListedRoom _roomList;
+        [Header("Content object, where rooms will be listed")]
+        [SerializeField] private Transform _contentParent;
 
-    public override void OnEnable()
-    {
-        base.OnEnable();
-        PhotonNetwork.JoinLobby();
-    }
+        private List<ListedRoom> _listedRooms = new List<ListedRoom>();
 
-    public override void OnDisable()
-    {
-        base.OnDisable();
-        if (_listedRooms.Count > 0)
+        #region Monobehaviour
+        private void Awake()
         {
-            foreach (ListedRoom room in _listedRooms)
-            {
-                Destroy(room.gameObject);
-            }
-            _listedRooms.Clear();
+            PhotonNetwork.LeaveLobby();
         }
-    }
 
-    public override void OnLeftLobby()
-    {
-        if (_listedRooms.Count > 0)
+        public override void OnEnable()
         {
-            foreach (ListedRoom room in _listedRooms)
-            {
-                Destroy(room.gameObject);
-            }
-            _listedRooms.Clear();
+            base.OnEnable();
+            PhotonNetwork.JoinLobby();
         }
-    }
 
-    public override void OnRoomListUpdate(List<RoomInfo> roomList)
-    {
-        foreach (RoomInfo info in roomList)
+        public override void OnDisable()
         {
-            if (info.RemovedFromList)
+            base.OnDisable();
+            if (_listedRooms.Count > 0)
             {
-                //Removed from the list
-                int index = _listedRooms.FindIndex(x => x.RoomInfo.Name == info.Name);
-                if(index != -1)
+                foreach (ListedRoom room in _listedRooms)
                 {
-                    Destroy(_listedRooms[index].gameObject);
-                    _listedRooms.RemoveAt(index);
+                    Destroy(room.gameObject);
+                }
+                _listedRooms.Clear();
+            }
+        }
+
+        #endregion
+
+        #region Callbacks Overrides
+        public override void OnLeftLobby()
+        {
+            if (_listedRooms.Count > 0)
+            {
+                foreach (ListedRoom room in _listedRooms)
+                {
+                    Destroy(room.gameObject);
+                }
+                _listedRooms.Clear();
+            }
+        }
+
+        public override void OnRoomListUpdate(List<RoomInfo> roomList)
+        {
+            foreach (RoomInfo info in roomList)
+            {
+                if (info.RemovedFromList)
+                {
+                    //Removed from the list
+                    int index = _listedRooms.FindIndex(x => x.RoomInfo.Name == info.Name);
+                    if (index != -1)
+                    {
+                        Destroy(_listedRooms[index].gameObject);
+                        _listedRooms.RemoveAt(index);
+                    }
+                }
+                else
+                {
+                    //Added to the list
+                    ListedRoom listedRoom = Instantiate(_roomList, _contentParent);
+                    if (listedRoom != null)
+                    {
+                        listedRoom.SetRoomInfo(info);
+                        _listedRooms.Add(listedRoom);
+                    }
                 }
             }
-            else
-            {
-                //Added to the list
-                ListedRoom listedRoom = Instantiate(_roomList, _contentParent);
-                if (listedRoom != null)
-                {
-                    listedRoom.SetRoomInfo(info);
-                    _listedRooms.Add(listedRoom);
-                }
-            }
         }
+
+        #endregion
     }
 }

@@ -4,33 +4,36 @@ using UnityEngine;
 using TMPro;
 using Photon.Realtime;
 
-public class ListedRoom : MonoBehaviour
+namespace FFSM
 {
-    [Header("Listed Room properties")]
-    [SerializeField] private TextMeshProUGUI _listedRoomText;
-    public RoomInfo RoomInfo { get; private set; }
-
-    [Header("Join Canvas reference")]
-    public JoinCanvas joinCanvas;
-
-    [Header("Button Sound")]
-    public AudioClip buttonSound;
-
-    private void Start()
+    public class ListedRoom : MonoBehaviour
     {
-        joinCanvas = FindObjectOfType<JoinCanvas>();
-    }
+        [Header("Listed Room properties")]
+        [SerializeField] private TextMeshProUGUI _listedRoomText;
+        public RoomInfo RoomInfo { get; private set; }
 
-    public void SetRoomInfo(RoomInfo roomInfo)
-    {
-        RoomInfo = roomInfo;
-        _listedRoomText.text = roomInfo.Name + " - " + roomInfo.PlayerCount + " i " + roomInfo.MaxPlayers;
-    }
+        [Header("Join Canvas reference")]
+        public JoinCanvas joinCanvas;
 
-    public void JoinSelectedRoom()
-    {
-        AudioManager.Instance.PlaySound(buttonSound);
-        joinCanvas.ShowRoomCanvas();
-        NetworkManager.Instance.JoinRoom(RoomInfo.Name);
+        [Header("Button Sound")]
+        public AudioClip buttonSound;
+
+        private void Start()
+        {
+            joinCanvas = FindObjectOfType<JoinCanvas>();
+        }
+
+        public void SetRoomInfo(RoomInfo roomInfo)
+        {
+            RoomInfo = roomInfo;
+            _listedRoomText.text = roomInfo.Name + " - " + roomInfo.PlayerCount + " i " + roomInfo.MaxPlayers;
+        }
+
+        public void JoinSelectedRoom()
+        {
+            AudioManager.Instance.PlaySound(buttonSound);
+            joinCanvas.ShowRoomCanvas();
+            NetworkManager.Instance.JoinRoom(RoomInfo.Name);
+        }
     }
 }

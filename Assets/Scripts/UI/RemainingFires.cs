@@ -2,38 +2,41 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
-public class RemainingFires : MonoBehaviour
+namespace FFSM
 {
-    public TextMeshProUGUI RemainingFiresText;
-    public Color NormalColor;
-    public Color CompletedColor;
-    public Color WarningColor;
-
-    void Start()
+    public class RemainingFires : MonoBehaviour
     {
-        SetTextColor(NormalColor);
-    }
+        public TextMeshProUGUI RemainingFiresText;
+        public Color NormalColor;
+        public Color CompletedColor;
+        public Color WarningColor;
 
-    public void SetRemainingFires(int amount)
-    {
-        RemainingFiresText.text = amount.ToString();
-        if(amount == 0)
+        void Start()
         {
-            SetTextColor(CompletedColor);
+            SetTextColor(NormalColor);
         }
-    }
 
-    public void WarningFire()
-    {
-        SetTextColor(NormalColor);
-        RemainingFiresText
-            .DOColor(WarningColor, 0.5f)
-            .SetLoops(6, LoopType.Yoyo)
-            .SetEase(Ease.InQuad);
-    }
-    
-    private void SetTextColor(Color color)
-    {
-        RemainingFiresText.color = color;
+        public void SetRemainingFires(int amount)
+        {
+            RemainingFiresText.text = amount.ToString();
+            if (amount == 0)
+            {
+                SetTextColor(CompletedColor);
+            }
+        }
+
+        public void WarningFire()
+        {
+            SetTextColor(NormalColor);
+            RemainingFiresText
+                .DOColor(WarningColor, 0.5f)
+                .SetLoops(6, LoopType.Yoyo)
+                .SetEase(Ease.InQuad);
+        }
+
+        private void SetTextColor(Color color)
+        {
+            RemainingFiresText.color = color;
+        }
     }
 }

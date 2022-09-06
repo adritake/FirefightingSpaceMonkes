@@ -1,25 +1,36 @@
 using UnityEngine;
 using TMPro;
 
-public class TitleCanvas : MonoBehaviour
+namespace FFSM
 {
-    [SerializeField] private TMP_InputField _inputNameField;
-
-    private void Awake()
+    public class TitleCanvas : MonoBehaviour
     {
-        _inputNameField = GetComponentInChildren<TMP_InputField>();
-    }
+        [Tooltip("Input field for player name")]
+        [SerializeField] private TMP_InputField _inputNameField;
 
-    public void StartButtonClicked()
-    {
-        if (!string.IsNullOrEmpty(_inputNameField.text))
+        #region Monobehaviour
+        private void Awake()
         {
-            NetworkManager.Instance.SetPlayerName(_inputNameField.text);
-            NetworkManager.Instance.Login();
+            _inputNameField = GetComponentInChildren<TMP_InputField>();
         }
-        else
+
+        #endregion
+
+        #region Public Methods
+        public void StartButtonClicked()
         {
-            Debug.LogError("Monke name empty");
+            if (!string.IsNullOrEmpty(_inputNameField.text))
+            {
+                NetworkManager.Instance.SetPlayerName(_inputNameField.text);
+                NetworkManager.Instance.Login();
+            }
+            else
+            {
+                Debug.LogError("Monke name empty");
+            }
         }
+
+        #endregion
+
     }
 }

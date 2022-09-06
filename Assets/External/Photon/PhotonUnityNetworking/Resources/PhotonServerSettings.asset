@@ -45,6 +45,11 @@ MonoBehaviour:
   - RPC_DestroyShip
   - RPC_CompleteLevel
   - RPC_LooseLevel
+  - RPCCreditsMusic
+  - RPCGameMusic
+  - RPCMenuMusic
+  - RPCPlayLoseMusic
+  - RPCPlayWinMusic
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

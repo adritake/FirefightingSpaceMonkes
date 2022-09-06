@@ -2,27 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JoinCanvas : MonoBehaviour
+namespace FFSM
 {
-    public GameObject menuCanvas;
-    public GameObject roomCanvas;
-    public GameObject monkes;
-
-    public AudioClip leaveJoinSound;
-
-    public void MenuButtonClicked()
+    public class JoinCanvas : MonoBehaviour
     {
-        //Show Menu
-        gameObject.SetActive(false);
-        menuCanvas.SetActive(true);
-        monkes.SetActive(true);
-        AudioManager.Instance.PlaySound(leaveJoinSound);
-    }
 
-    public void ShowRoomCanvas()
-    {
-        roomCanvas.SetActive(true);
-        gameObject.SetActive(false);
-    }
+        [Header("Transition Canvas References")]
+        public GameObject menuCanvas;
+        public GameObject roomCanvas;
 
+        [Header("Background sprites")]
+        public GameObject monkes;
+
+        [Header("Sound")]
+        public AudioClip leaveJoinSound;
+
+        #region Public Methods
+        public void MenuButtonClicked()
+        {
+            //Show Menu
+            gameObject.SetActive(false);
+            menuCanvas.SetActive(true);
+            monkes.SetActive(true);
+            AudioManager.Instance.PlaySound(leaveJoinSound);
+        }
+
+        public void ShowRoomCanvas()
+        {
+            roomCanvas.SetActive(true);
+            gameObject.SetActive(false);
+        }
+
+        #endregion
+
+
+    }
 }

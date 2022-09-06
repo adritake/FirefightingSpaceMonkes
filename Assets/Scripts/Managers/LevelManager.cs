@@ -2,64 +2,67 @@ using Photon.Pun;
 using System.Linq;
 using UnityEngine;
 
-public class LevelManager : PunSingleton<LevelManager>
+namespace FFSM
 {
-    public bool DebugMode;
-
-    private int _firesLeft;
-
-    private void Start()
+    public class LevelManager : PunSingleton<LevelManager>
     {
-        _firesLeft = FindObjectsOfType<Fire>().Count();
-        LevelUIManager.Instance.SetRemainingFires(_firesLeft);
-    }
+        public bool DebugMode;
 
-    #region Public methods
-    public bool AllFireExtinguished()
-    {
-        return _firesLeft <= 0;
-    }
+        private int _firesLeft;
 
-    public void ReduceFiresLeft()
-    {
-        _firesLeft--;
-        LevelUIManager.Instance.SetRemainingFires(_firesLeft);
-
-        if (_firesLeft <= 0)
+        private void Start()
         {
-            AudioManager.Instance.AllFiresOffSound();
+            _firesLeft = FindObjectsOfType<Fire>().Count();
+            LevelUIManager.Instance.SetRemainingFires(_firesLeft);
         }
-    }
 
-    public void WarningFires()
-    {
-        LevelUIManager.Instance.WarningFire();
-    }
+        #region Public methods
+        public bool AllFireExtinguished()
+        {
+            return _firesLeft <= 0;
+        }
 
-    public void CompleteLevel()
-    {
-        photonView.RPC(nameof(RPC_CompleteLevel), RpcTarget.AllViaServer);
-    }
+        public void ReduceFiresLeft()
+        {
+            _firesLeft--;
+            LevelUIManager.Instance.SetRemainingFires(_firesLeft);
 
-    public void FailLevel()
-    {
-        photonView.RPC(nameof(RPC_LooseLevel), RpcTarget.AllViaServer);
-    }
-    #endregion
+            if (_firesLeft <= 0)
+            {
+                AudioManager.Instance.AllFiresOffSound();
+            }
+        }
 
-    #region RPC
-    [PunRPC]
-    private void RPC_CompleteLevel()
-    {
-        AudioManager.Instance.PlayWinMusic();
-        LevelUIManager.Instance.EnableWinCanvas(true, PhotonNetwork.IsMasterClient);
-    }
+        public void WarningFires()
+        {
+            LevelUIManager.Instance.WarningFire();
+        }
 
-    [PunRPC]
-    private void RPC_LooseLevel()
-    {
-        AudioManager.Instance.PlayLooseMusic();
-        LevelUIManager.Instance.EnableLooseCanvas(true, PhotonNetwork.IsMasterClient);
+        public void CompleteLevel()
+        {
+            photonView.RPC(nameof(RPC_CompleteLevel), RpcTarget.AllViaServer);
+        }
+
+        public void FailLevel()
+        {
+            photonView.RPC(nameof(RPC_LooseLevel), RpcTarget.AllViaServer);
+        }
+        #endregion
+
+        #region RPC
+        [PunRPC]
+        private void RPC_CompleteLevel()
+        {
+            AudioManager.Instance.PlayWinMusic();
+            LevelUIManager.Instance.EnableWinCanvas(true, PhotonNetwork.IsMasterClient);
+        }
+
+        [PunRPC]
+        private void RPC_LooseLevel()
+        {
+            AudioManager.Instance.PlayLooseMusic();
+            LevelUIManager.Instance.EnableLooseCanvas(true, PhotonNetwork.IsMasterClient);
+        }
+        #endregion
     }
-    #endregion
 }

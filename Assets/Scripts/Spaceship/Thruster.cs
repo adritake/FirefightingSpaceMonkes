@@ -2,32 +2,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Thruster : MonoBehaviour
+
+namespace FFSM
 {
-    public ParticleSystem Particles;
-    public bool StartEnabled = false;
-
-    private bool _particlesPlaying;
-
-    public AudioClip thrustSound;
-
-    private void Start()
+    public class Thruster : MonoBehaviour
     {
-        EnableThruster(StartEnabled);
-    }
+        public ParticleSystem Particles;
+        public bool StartEnabled = false;
 
-    public void EnableThruster(bool enabled)
-    {
-        if (enabled && !_particlesPlaying)
+        private bool _particlesPlaying;
+
+        public AudioClip thrustSound;
+
+        private void Start()
         {
-            _particlesPlaying = true;
-            Particles.Play();
-            AudioManager.Instance.PlaySound(thrustSound);
+            EnableThruster(StartEnabled);
         }
-        else if(!enabled)
+
+        private void Update()
         {
-            _particlesPlaying = false;
-            Particles.Stop();
+            if (_particlesPlaying)
+            {
+                AudioManager.Instance.PlaySoundLoop(thrustSound);
+            }
+        }
+
+        public void EnableThruster(bool enabled)
+        {
+            if (enabled && !_particlesPlaying)
+            {
+                _particlesPlaying = true;
+                Particles.Play();
+            }
+            else if (!enabled)
+            {
+                _particlesPlaying = false;
+                Particles.Stop();
+            }
         }
     }
 }

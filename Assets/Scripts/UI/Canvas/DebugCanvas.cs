@@ -3,58 +3,69 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class DebugCanvas : MonoBehaviour
+namespace FFSM
 {
-    [SerializeField] private bool _roomJoined;
-
-    public TextMeshProUGUI roomNameText;
-    public TextMeshProUGUI playerNumberText;
-
-    private void OnEnable()
+    public class DebugCanvas : MonoBehaviour
     {
-        NetworkManager.Instance.JoinedRoom += JoinedRoom;
-        NetworkManager.Instance.LeftRoom += LeftRoom;
-    }
+        [Tooltip("Bool to check if player is in a room")]
+        [SerializeField] private bool _roomJoined;
 
-    private void OnDisable()
-    {
-        NetworkManager.Instance.JoinedRoom -= JoinedRoom;
-        NetworkManager.Instance.LeftRoom -= LeftRoom;
-    }
+        [Header("UI references")]
+        public TextMeshProUGUI roomNameText;
+        public TextMeshProUGUI playerNumberText;
 
-    private void Start()
-    {
-        _roomJoined = false;
-    }
-
-    private void Update()
-    {
-        if (_roomJoined)
+        #region Monobehaviour
+        private void OnEnable()
         {
-            DebugUIUpdate(NetworkManager.Instance.GetRoomName(), NetworkManager.Instance.GetPlayersInRoom());
+            NetworkManager.Instance.JoinedRoom += JoinedRoom;
+            NetworkManager.Instance.LeftRoom += LeftRoom;
         }
-        else
+
+        private void OnDisable()
         {
-            DebugUIUpdate("none", "000");
+            NetworkManager.Instance.JoinedRoom -= JoinedRoom;
+            NetworkManager.Instance.LeftRoom -= LeftRoom;
         }
-    }
 
-    private void DebugUIUpdate(string name, string playerNumber)
-    {
-        roomNameText.text = name;
-        playerNumberText.text = playerNumber;
-    }
+        private void Start()
+        {
+            _roomJoined = false;
+        }
 
-    #region Setters
-    private void JoinedRoom()
-    {
-        _roomJoined = true;
-    }
+        private void Update()
+        {
+            if (_roomJoined)
+            {
+                DebugUIUpdate(NetworkManager.Instance.GetRoomName(), NetworkManager.Instance.GetPlayersInRoom());
+            }
+            else
+            {
+                DebugUIUpdate("none", "000");
+            }
+        }
 
-    private void LeftRoom()
-    {
-        _roomJoined = false;
-    }
+        #endregion
 
-    #endregion
+        #region Private Methods
+        private void DebugUIUpdate(string name, string playerNumber)
+        {
+            roomNameText.text = name;
+            playerNumberText.text = playerNumber;
+        }
+
+        #endregion
+
+        #region Setters
+        private void JoinedRoom()
+        {
+            _roomJoined = true;
+        }
+
+        private void LeftRoom()
+        {
+            _roomJoined = false;
+        }
+
+        #endregion
+    }
 }

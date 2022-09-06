@@ -4,73 +4,77 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PunSceneManager : Singleton<PunSceneManager>
+namespace FFSM
 {
-    private int _currentLevel;
-    private const string LEVEL_NAME = "Level";
-    private const string CREDIT_NAME = "Credits";
-    private const string MENU_NAME = "1_MenuScene";
-    private const string UTILITY_SCENE_NAME = "ReloadSceneUtility";
-
-    public AudioClip startSound;
-
-    #region MonoBehaviour
-    private void Start()
+    public class PunSceneManager : Singleton<PunSceneManager>
     {
-        _currentLevel = 0;
-        DontDestroyOnLoad(this);
-    }
-    #endregion
+        private int _currentLevel;
+        private const string LEVEL_NAME = "Level";
+        private const string CREDIT_NAME = "Credits";
+        private const string MENU_NAME = "1_MenuScene";
+        private const string UTILITY_SCENE_NAME = "ReloadSceneUtility";
 
-    #region Public methods
-    public void LoadMenuScene()
-    {
-        AudioManager.Instance.MenuMusic();
-        SceneManager.LoadScene(MENU_NAME);
-    }
+        public AudioClip startSound;
 
-    public void LoadCreditScene()
-    {
-        AudioManager.Instance.CreditsMusic();
-        SceneManager.LoadScene(CREDIT_NAME);
-    }
-
-    public void ReloadLevel()
-    {
-        if (PhotonNetwork.IsMasterClient)
+        #region MonoBehaviour
+        private void Start()
         {
-            PhotonNetwork.LoadLevel(UTILITY_SCENE_NAME);
+            _currentLevel = 0;
+            DontDestroyOnLoad(this);
         }
-    }
+        #endregion
 
-    public void LoadCurrentLevel()
-    {
-        if (PhotonNetwork.IsMasterClient)
-
+        #region Public methods
+        public void LoadMenuScene()
         {
-            AudioManager.Instance.PlaySound(startSound);
-            AudioManager.Instance.GameMusic();
-            PhotonNetwork.LoadLevel(GetLevelName());
+            AudioManager.Instance.MenuMusic();
+            SceneManager.LoadScene(MENU_NAME);
         }
-    }
 
-    public void LoadNextLevel()
-    {
-        if (PhotonNetwork.IsMasterClient)
+        public void LoadCreditScene()
         {
-            _currentLevel++;
-            AudioManager.Instance.PlaySound(startSound);
-            AudioManager.Instance.GameMusic();
-            PhotonNetwork.LoadLevel(GetLevelName());
+            AudioManager.Instance.CreditsMusic();
+            SceneManager.LoadScene(CREDIT_NAME);
         }
-    }
-    #endregion
 
-    #region Private methods
-    private string GetLevelName()
-    {
-        return LEVEL_NAME + _currentLevel.ToString("00");
+        public void ReloadLevel()
+        {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                PhotonNetwork.LoadLevel(UTILITY_SCENE_NAME);
+            }
+        }
+
+        public void LoadCurrentLevel()
+        {
+            if (PhotonNetwork.IsMasterClient)
+
+            {
+                AudioManager.Instance.PlaySound(startSound);
+                AudioManager.Instance.GameMusic();
+                PhotonNetwork.LoadLevel(GetLevelName());
+            }
+        }
+
+        public void LoadNextLevel()
+        {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                _currentLevel++;
+                AudioManager.Instance.PlaySound(startSound);
+                AudioManager.Instance.GameMusic();
+                PhotonNetwork.LoadLevel(GetLevelName());
+            }
+        }
+        #endregion
+
+        #region Private methods
+        private string GetLevelName()
+        {
+            return LEVEL_NAME + _currentLevel.ToString("00");
+        }
+        #endregion
+
     }
-    #endregion
 }
 

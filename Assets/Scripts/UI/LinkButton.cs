@@ -4,31 +4,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LinkButton : MonoBehaviour
+namespace FFSM
 {
-    public string URL;
-    public float BlinkTime = 0.5f;
-
-    private Image _image;
-
-    public AudioClip linkSound;
-
-    private void Awake()
+    public class LinkButton : MonoBehaviour
     {
-        _image = GetComponent<Image>();
-    }
+        public string URL;
+        public float BlinkTime = 0.5f;
 
-    private void Start()
-    {
-        _image
-            .DOColor(Color.clear, BlinkTime)
-            .SetEase(Ease.InQuad)
-            .SetLoops(-1, LoopType.Yoyo);
-    }
+        private Image _image;
 
-    public void OpenLink()
-    {
-        AudioManager.Instance.PlaySound(linkSound);
-        Application.OpenURL(URL);
+        public AudioClip linkSound;
+
+        private void Awake()
+        {
+            _image = GetComponent<Image>();
+        }
+
+        private void Start()
+        {
+            _image
+                .DOColor(Color.clear, BlinkTime)
+                .SetEase(Ease.InQuad)
+                .SetLoops(-1, LoopType.Yoyo);
+        }
+
+        public void OpenLink()
+        {
+            AudioManager.Instance.PlaySound(linkSound);
+            Application.OpenURL(URL);
+        }
     }
 }

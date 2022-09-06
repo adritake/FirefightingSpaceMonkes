@@ -1,16 +1,19 @@
 using UnityEngine;
 
-public class RotateForever : MonoBehaviour
+namespace FFSM
 {
-    public float RotationSpeed;
-
-    void Update()
+    public class RotateForever : MonoBehaviour
     {
-        Rotate();
-    }
+        public float RotationSpeed;
 
-    private void Rotate()
-    {
-        transform.Rotate(Vector3.forward, RotationSpeed * Time.deltaTime);
+        void Update()
+        {
+            Rotate();
+        }
+
+        private void Rotate()
+        {
+            transform.Rotate(Vector3.forward, RotationSpeed * Time.deltaTime);
+        }
     }
 }

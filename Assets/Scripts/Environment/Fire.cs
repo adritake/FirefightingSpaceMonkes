@@ -1,38 +1,41 @@
 using Photon.Pun;
 using UnityEngine;
 
-public class Fire : MonoBehaviourPunCallbacks
+namespace FFSM
 {
-    public GameObject FireLoop;
-    public GameObject FireExtinguish;
-
-    private Collider _collider;
-    private bool _extinguished;
-
-    public AudioClip extinguishSound;
-
-    private void Awake()
+    public class Fire : MonoBehaviourPunCallbacks
     {
-        _collider = GetComponent<Collider>();
-    }
+        public GameObject FireLoop;
+        public GameObject FireExtinguish;
 
-    public void Extinguish()
-    {
-        photonView.RPC(nameof(RPC_ExtinguishFire), RpcTarget.AllViaServer);
-    }
+        private Collider _collider;
+        private bool _extinguished;
 
-    [PunRPC]
-    private void RPC_ExtinguishFire()
-    {
-        if (!_extinguished)
+        public AudioClip extinguishSound;
+
+        private void Awake()
         {
-            _extinguished = true;
-            LevelManager.Instance.ReduceFiresLeft();
-            AudioManager.Instance.PlaySound(extinguishSound);
-            FireLoop.SetActive(false);
-            FireExtinguish.SetActive(true);
-            _collider.enabled = false;
-            Destroy(gameObject, 1);
+            _collider = GetComponent<Collider>();
+        }
+
+        public void Extinguish()
+        {
+            photonView.RPC(nameof(RPC_ExtinguishFire), RpcTarget.AllViaServer);
+        }
+
+        [PunRPC]
+        private void RPC_ExtinguishFire()
+        {
+            if (!_extinguished)
+            {
+                _extinguished = true;
+                LevelManager.Instance.ReduceFiresLeft();
+                AudioManager.Instance.PlaySound(extinguishSound);
+                FireLoop.SetActive(false);
+                FireExtinguish.SetActive(true);
+                _collider.enabled = false;
+                Destroy(gameObject, 1);
+            }
         }
     }
 }

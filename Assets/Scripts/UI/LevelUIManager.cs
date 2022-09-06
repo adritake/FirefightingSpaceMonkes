@@ -1,80 +1,83 @@
 using UnityEngine;
 
-public class LevelUIManager : Singleton<LevelUIManager>
+namespace FFSM
 {
-    [Header("Win")]
-    public GameObject WinCanvas;
-    public GameObject NextLevelButton;
-
-    [Header("Loose")]
-    public GameObject LooseCanvas;
-    public GameObject RetryButton;
-
-    [Header("Fires")]
-    public RemainingFires RemainingFires;
-
-    [Header("Tutorial")]
-    public TutorialText[] TutorialTexts;
-
-    #region Monobehaviour
-    void Update()
+    public class LevelUIManager : Singleton<LevelUIManager>
     {
-        CheckHideTutorial();
-    }
-    #endregion
+        [Header("Win")]
+        public GameObject WinCanvas;
+        public GameObject NextLevelButton;
 
-    #region Public methods
-    public void EnableWinCanvas(bool enabled, bool enableButton)
-    {
-        WinCanvas.SetActive(enabled);
-        NextLevelButton.SetActive(enableButton);
-    }
+        [Header("Loose")]
+        public GameObject LooseCanvas;
+        public GameObject RetryButton;
 
-    public void EnableLooseCanvas(bool enabled, bool enableButton)
-    {
-        LooseCanvas.SetActive(enabled);
-        RetryButton.SetActive(enableButton);
-        HideTutorialTexts();
-    }
+        [Header("Fires")]
+        public RemainingFires RemainingFires;
 
-    public void SetRemainingFires(int amount)
-    {
-        RemainingFires.SetRemainingFires(amount);
-    }
+        [Header("Tutorial")]
+        public TutorialText[] TutorialTexts;
 
-    public void WarningFire()
-    {
-        RemainingFires.WarningFire();
-    }
-    #endregion
-
-    #region Private methods
-    private void CheckHideTutorial()
-    {
-        if (TutorialTexts.Length > 0 && Input.GetKeyDown(KeyCode.Space))
+        #region Monobehaviour
+        void Update()
         {
+            CheckHideTutorial();
+        }
+        #endregion
+
+        #region Public methods
+        public void EnableWinCanvas(bool enabled, bool enableButton)
+        {
+            WinCanvas.SetActive(enabled);
+            NextLevelButton.SetActive(enableButton);
+        }
+
+        public void EnableLooseCanvas(bool enabled, bool enableButton)
+        {
+            LooseCanvas.SetActive(enabled);
+            RetryButton.SetActive(enableButton);
             HideTutorialTexts();
         }
-    }
 
-    private void HideTutorialTexts()
-    {
-        foreach(var tutorial in TutorialTexts)
+        public void SetRemainingFires(int amount)
         {
-            tutorial.Hide();
+            RemainingFires.SetRemainingFires(amount);
         }
-    }
-    #endregion
 
-    #region Events
-    public void OnRetryButtonClicked()
-    {
-        PunSceneManager.Instance.ReloadLevel();
-    }
+        public void WarningFire()
+        {
+            RemainingFires.WarningFire();
+        }
+        #endregion
 
-    public void OnNextLevelButtonClicked()
-    {
-        PunSceneManager.Instance.LoadNextLevel();
+        #region Private methods
+        private void CheckHideTutorial()
+        {
+            if (TutorialTexts.Length > 0 && Input.GetKeyDown(KeyCode.Space))
+            {
+                HideTutorialTexts();
+            }
+        }
+
+        private void HideTutorialTexts()
+        {
+            foreach (var tutorial in TutorialTexts)
+            {
+                tutorial.Hide();
+            }
+        }
+        #endregion
+
+        #region Events
+        public void OnRetryButtonClicked()
+        {
+            PunSceneManager.Instance.ReloadLevel();
+        }
+
+        public void OnNextLevelButtonClicked()
+        {
+            PunSceneManager.Instance.LoadNextLevel();
+        }
+        #endregion
     }
-    #endregion
 }

@@ -3,23 +3,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PunSingleton<T> : MonoBehaviourPunCallbacks where T : MonoBehaviourPunCallbacks
+namespace FFSM
 {
-    protected static T m_instance;
-
-    public static T Instance
+    public class PunSingleton<T> : MonoBehaviourPunCallbacks where T : MonoBehaviourPunCallbacks
     {
-        get
+        protected static T m_instance;
+
+        public static T Instance
         {
-            if (m_instance == null)
+            get
             {
-                m_instance = (T)FindObjectOfType(typeof(T));
+                if (m_instance == null)
+                {
+                    m_instance = (T)FindObjectOfType(typeof(T));
 
-                if (!m_instance && Application.isEditor) Debug.LogError("Instance of" + typeof(T) + " not found");
+                    if (!m_instance && Application.isEditor) Debug.LogError("Instance of" + typeof(T) + " not found");
 
+                }
+
+                return m_instance;
             }
-
-            return m_instance;
         }
     }
 }
