@@ -7,6 +7,7 @@ public class Fire : MonoBehaviourPunCallbacks
     public GameObject FireExtinguish;
 
     private Collider _collider;
+    private bool _extinguished;
 
     private void Awake()
     {
@@ -21,9 +22,14 @@ public class Fire : MonoBehaviourPunCallbacks
     [PunRPC]
     private void RPC_ExtinguishFire()
     {
-        FireLoop.SetActive(false);
-        FireExtinguish.SetActive(true);
-        _collider.enabled = false;
-        Destroy(gameObject, 1);
+        if (!_extinguished)
+        {
+            _extinguished = true;
+            LevelManager.Instance.ReduceFiresLeft();
+            FireLoop.SetActive(false);
+            FireExtinguish.SetActive(true);
+            _collider.enabled = false;
+            Destroy(gameObject, 1);
+        }
     }
-} 
+}

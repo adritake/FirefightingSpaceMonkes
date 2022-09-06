@@ -1,26 +1,33 @@
 using Photon.Pun;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class LevelManager : PunSingleton<LevelManager>
 {
     public bool DebugMode;
 
-    private Fire[] _fires;
+    private int _firesLeft;
 
     private void Start()
     {
-        _fires = FindObjectsOfType<Fire>();
+        _firesLeft = FindObjectsOfType<Fire>().Count();
+        LevelUIManager.Instance.SetRemainingFires(_firesLeft);
     }
 
     #region Public methods
     public bool AllFireExtinguished()
     {
-        return _fires.All(x => x == null);
+        return _firesLeft <= 0;
+    }
+
+    public void ReduceFiresLeft()
+    {
+        _firesLeft--;
+        LevelUIManager.Instance.SetRemainingFires(_firesLeft);
+    }
+
+    public void WarningFires()
+    {
+        LevelUIManager.Instance.WarningFire();
     }
 
     public void CompleteLevel()

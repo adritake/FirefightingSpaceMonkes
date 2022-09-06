@@ -218,6 +218,7 @@ public class SpaceshipController : MonoBehaviourPunCallbacks
             else
             {
                 Debug.Log("Not all fires are extinguished");
+                LevelManager.Instance.WarningFires();
                 SnapSpaceshipToGround(collision.GetContact(0).point);
                 _canStartMovement = true;
             }

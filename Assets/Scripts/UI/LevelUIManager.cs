@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class LevelUIManager : Singleton<LevelUIManager>
 {
@@ -12,6 +9,9 @@ public class LevelUIManager : Singleton<LevelUIManager>
     [Header("Loose")]
     public GameObject LooseCanvas;
     public GameObject RetryButton;
+
+    [Header("Fires")]
+    public RemainingFires RemainingFires;
 
     [Header("Tutorial")]
     public TutorialText TutorialText;
@@ -35,6 +35,16 @@ public class LevelUIManager : Singleton<LevelUIManager>
         LooseCanvas.SetActive(enabled);
         RetryButton.SetActive(enableButton);
         TutorialText.Hide();
+    }
+
+    public void SetRemainingFires(int amount)
+    {
+        RemainingFires.SetRemainingFires(amount);
+    }
+
+    public void WarningFire()
+    {
+        RemainingFires.WarningFire();
     }
     #endregion
 
