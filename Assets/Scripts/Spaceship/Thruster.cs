@@ -21,8 +21,8 @@ public class Thruster : MonoBehaviour
         if (enabled && !_particlesPlaying)
         {
             _particlesPlaying = true;
-            AudioManager.Instance.PlaySound(thrustSound);
             Particles.Play();
+            AudioManager.Instance.PlaySound(thrustSound);
         }
         else if(!enabled)
         {
