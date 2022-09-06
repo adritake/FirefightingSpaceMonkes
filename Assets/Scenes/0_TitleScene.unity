@@ -728,6 +728,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _musicSource: {fileID: 0}
   _effectSource: {fileID: 0}
+  winMusic: {fileID: 8300000, guid: 4f927180bb3cc65498200e2f30c384f9, type: 3}
+  looseMusic: {fileID: 8300000, guid: 28e65598f83e51a489329adb32ef38e5, type: 3}
+  gameMusic: {fileID: 8300000, guid: 9f49e66cea8dfce41bd873ef50e4109a, type: 3}
+  menuMusic: {fileID: 8300000, guid: 27b65c356123c66408b044c79cc25a5a, type: 3}
+  creditsMusic: {fileID: 8300000, guid: 093b24d03cc66934cb7ee13596dfab91, type: 3}
+  firesOffSound: {fileID: 8300000, guid: b5e70a15267660a459ca7f3eb44a261c, type: 3}
+  buzzSound: {fileID: 8300000, guid: e4e759389e6422a4c98ecd005bad1e9b, type: 3}
 --- !u!1 &1272692624
 GameObject:
   m_ObjectHideFlags: 0

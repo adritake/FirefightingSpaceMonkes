@@ -4862,3 +4862,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Particles: {fileID: 6637240954853305529}
+  StartEnabled: 0
+  thrustSound: {fileID: 8300000, guid: 035d099e13304d544bcef6378baf6341, type: 3}

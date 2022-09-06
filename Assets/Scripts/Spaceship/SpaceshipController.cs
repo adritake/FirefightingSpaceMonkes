@@ -40,6 +40,10 @@ public class SpaceshipController : MonoBehaviourPunCallbacks
     public GameObject ShipExplosion;
     public SpriteRenderer[] VisibleSprites;
 
+    [Header("Sounds")]
+    public AudioClip explosionSound;
+    public AudioClip landingSound;
+
     private Vector3 _currentSpeed;
     private bool _leftButtonIsPressed;
     private bool _rightButtonIsPressed;
@@ -213,12 +217,14 @@ public class SpaceshipController : MonoBehaviourPunCallbacks
             else if (LevelManager.Instance.AllFireExtinguished())
             {
                 LevelManager.Instance.CompleteLevel();
+                AudioManager.Instance.PlaySound(landingSound);
                 SnapSpaceshipToGround(collision.GetContact(0).point);
             }
             else
             {
                 Debug.Log("Not all fires are extinguished");
                 LevelManager.Instance.WarningFires();
+                AudioManager.Instance.BuzzSound();
                 SnapSpaceshipToGround(collision.GetContact(0).point);
                 _canStartMovement = true;
             }
@@ -310,6 +316,7 @@ public class SpaceshipController : MonoBehaviourPunCallbacks
             sprite.enabled = false;
         }
         ShipExplosion.SetActive(true);
+        AudioManager.Instance.PlaySound(explosionSound);
         _canMove = false;
         Destroy(gameObject, DestroyTime);
     }

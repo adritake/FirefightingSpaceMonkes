@@ -578,6 +578,8 @@ MonoBehaviour:
   - {fileID: 1943408250}
   - {fileID: 738303166920760818}
   - {fileID: 8846252122128434751}
+  explosionSound: {fileID: 8300000, guid: c1aae99e9fd3a104fa7508fa2a468b96, type: 3}
+  landingSound: {fileID: 8300000, guid: fc0f151b86bd20e45928c1b620b48e5d, type: 3}
 --- !u!114 &-1275953719920989984
 MonoBehaviour:
   m_ObjectHideFlags: 0

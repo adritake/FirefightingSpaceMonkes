@@ -260,6 +260,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FireLoop: {fileID: 4383516008188905895}
   FireExtinguish: {fileID: 4383516009437948648}
+  extinguishSound: {fileID: 8300000, guid: b5e70a15267660a459ca7f3eb44a261c, type: 3}
 --- !u!61 &4383516009655677362
 BoxCollider2D:
   m_ObjectHideFlags: 0

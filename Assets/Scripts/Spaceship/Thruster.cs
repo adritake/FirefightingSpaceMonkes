@@ -9,6 +9,8 @@ public class Thruster : MonoBehaviour
 
     private bool _particlesPlaying;
 
+    public AudioClip thrustSound;
+
     private void Start()
     {
         EnableThruster(StartEnabled);
@@ -19,6 +21,7 @@ public class Thruster : MonoBehaviour
         if (enabled && !_particlesPlaying)
         {
             _particlesPlaying = true;
+            AudioManager.Instance.PlaySound(thrustSound);
             Particles.Play();
         }
         else if(!enabled)

@@ -17,6 +17,7 @@ public class ExitCredits : MonoBehaviour
     public void LoadMenu()
     {
         AudioManager.Instance.PlaySound(menuSound);
+        AudioManager.Instance.MenuMusic();
         PunSceneManager.Instance.LoadMenuScene();
     }
 }

@@ -9,6 +9,8 @@ public class Fire : MonoBehaviourPunCallbacks
     private Collider _collider;
     private bool _extinguished;
 
+    public AudioClip extinguishSound;
+
     private void Awake()
     {
         _collider = GetComponent<Collider>();
@@ -26,6 +28,7 @@ public class Fire : MonoBehaviourPunCallbacks
         {
             _extinguished = true;
             LevelManager.Instance.ReduceFiresLeft();
+            AudioManager.Instance.PlaySound(extinguishSound);
             FireLoop.SetActive(false);
             FireExtinguish.SetActive(true);
             _collider.enabled = false;

@@ -25,11 +25,13 @@ public class PunSceneManager : Singleton<PunSceneManager>
     #region Public methods
     public void LoadMenuScene()
     {
+        AudioManager.Instance.MenuMusic();
         SceneManager.LoadScene(MENU_NAME);
     }
 
     public void LoadCreditScene()
     {
+        AudioManager.Instance.CreditsMusic();
         SceneManager.LoadScene(CREDIT_NAME);
     }
 
@@ -46,6 +48,8 @@ public class PunSceneManager : Singleton<PunSceneManager>
         if (PhotonNetwork.IsMasterClient)
 
         {
+            AudioManager.Instance.PlaySound(startSound);
+            AudioManager.Instance.GameMusic();
             PhotonNetwork.LoadLevel(GetLevelName());
         }
     }
@@ -56,6 +60,7 @@ public class PunSceneManager : Singleton<PunSceneManager>
         {
             _currentLevel++;
             AudioManager.Instance.PlaySound(startSound);
+            AudioManager.Instance.GameMusic();
             PhotonNetwork.LoadLevel(GetLevelName());
         }
     }

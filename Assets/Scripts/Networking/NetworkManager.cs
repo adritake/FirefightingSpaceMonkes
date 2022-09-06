@@ -56,7 +56,7 @@ public class NetworkManager : PunSingleton<NetworkManager>
 
     public override void OnJoinedLobby()
     {
-        Debug.Log("Joined to the lobby");
+        Debug.Log("Joined the lobby");
     }
 
     public override void OnDisconnected(DisconnectCause cause)

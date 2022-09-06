@@ -1,5 +1,6 @@
 using Photon.Pun;
 using System.Linq;
+using UnityEngine;
 
 public class LevelManager : PunSingleton<LevelManager>
 {
@@ -23,6 +24,11 @@ public class LevelManager : PunSingleton<LevelManager>
     {
         _firesLeft--;
         LevelUIManager.Instance.SetRemainingFires(_firesLeft);
+
+        if (_firesLeft <= 0)
+        {
+            AudioManager.Instance.AllFiresOffSound();
+        }
     }
 
     public void WarningFires()
@@ -45,12 +51,14 @@ public class LevelManager : PunSingleton<LevelManager>
     [PunRPC]
     private void RPC_CompleteLevel()
     {
+        AudioManager.Instance.PlayWinMusic();
         LevelUIManager.Instance.EnableWinCanvas(true, PhotonNetwork.IsMasterClient);
     }
 
     [PunRPC]
     private void RPC_LooseLevel()
     {
+        AudioManager.Instance.PlayLooseMusic();
         LevelUIManager.Instance.EnableLooseCanvas(true, PhotonNetwork.IsMasterClient);
     }
     #endregion
