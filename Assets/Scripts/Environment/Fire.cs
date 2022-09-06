@@ -5,18 +5,18 @@ namespace FFSM
 {
     public class Fire : MonoBehaviourPunCallbacks
     {
-        public GameObject FireLoop;
-        public GameObject FireExtinguish;
+    public GameObject FireLoop;
+    public GameObject FireExtinguish;
 
-        private Collider _collider;
-        private bool _extinguished;
+    private Collider2D _collider;
+    private bool _extinguished;
 
-        public AudioClip extinguishSound;
+    public AudioClip extinguishSound;
 
-        private void Awake()
-        {
-            _collider = GetComponent<Collider>();
-        }
+    private void Awake()
+    {
+        _collider = GetComponent<Collider2D>();
+    }
 
         public void Extinguish()
         {
