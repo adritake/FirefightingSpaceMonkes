@@ -1,4 +1,5 @@
 using FFSM.GameManagers;
+using FFSM.Network;
 using Photon.Pun;
 using UnityEngine;
 
@@ -19,7 +20,7 @@ namespace FFSM.GameElements
         public float ExtinguishDistance = 1;
         public LayerMask FireLayer;
 
-        [Header("Componets")]
+        [Header("Components")]
         public Thruster LeftThruster;
         public Thruster RightThruster;
         public Transform LandingPosition;
@@ -55,6 +56,12 @@ namespace FFSM.GameElements
         {
             _canStartMovement = true;
             OutlinePlayerMonke();
+        }
+
+        void Start()
+        {
+            NetworkManager.Instance.JoinedRoom += OutlinePlayerMonke;
+            NetworkManager.Instance.LeftRoom += OutlinePlayerMonke;
         }
 
         void Update()
@@ -279,20 +286,7 @@ namespace FFSM.GameElements
 
         private void OutlinePlayerMonke()
         {
-            if (photonView.IsMine)
-            {
-                LeftMonke.SetActive(false);
-                LeftMonkeOutline.SetActive(true);
-                RightMonke.SetActive(true);
-                RightMonkeOutline.SetActive(false);
-            }
-            else
-            {
-                LeftMonke.SetActive(true);
-                LeftMonkeOutline.SetActive(false);
-                RightMonke.SetActive(false);
-                RightMonkeOutline.SetActive(true);
-            }
+            photonView.RPC(nameof(RPC_OutlinePlayerMonke), RpcTarget.AllViaServer);
         }
         #endregion
 
@@ -320,6 +314,25 @@ namespace FFSM.GameElements
             AudioManager.Instance.PlaySound(explosionSound);
             _canMove = false;
             Destroy(gameObject, DestroyTime);
+        }
+
+        [PunRPC]
+        private void RPC_OutlinePlayerMonke()
+        {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                LeftMonke.SetActive(false);
+                LeftMonkeOutline.SetActive(true);
+                RightMonke.SetActive(true);
+                RightMonkeOutline.SetActive(false);
+            }
+            else
+            {
+                LeftMonke.SetActive(true);
+                LeftMonkeOutline.SetActive(false);
+                RightMonke.SetActive(false);
+                RightMonkeOutline.SetActive(true);
+            }
         }
         #endregion
 

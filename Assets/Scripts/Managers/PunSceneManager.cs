@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 namespace FFSM.GameManagers
 {
-    public class PunSceneManager : Singleton<PunSceneManager>
+    public class PunSceneManager : PunSingleton<PunSceneManager>
     {
         private int _currentLevel;
         private const string LEVEL_NAME = "Level";
@@ -59,7 +59,7 @@ namespace FFSM.GameManagers
         {
             if (PhotonNetwork.IsMasterClient)
             {
-                _currentLevel++;
+                IncreaseLevel();
                 AudioManager.Instance.PlaySound(startSound);
                 AudioManager.Instance.GameMusic();
                 PhotonNetwork.LoadLevel(GetLevelName());
@@ -72,8 +72,21 @@ namespace FFSM.GameManagers
         {
             return LEVEL_NAME + _currentLevel.ToString("00");
         }
+
+        private void IncreaseLevel()
+        {
+            _currentLevel++;
+            photonView.RPC(nameof(RPC_IncreaseLevel), RpcTarget.Others);
+        }
         #endregion
 
+        #region RPC
+        [PunRPC]
+        private void RPC_IncreaseLevel()
+        {
+            _currentLevel++;
+        }
+        #endregion
     }
 }
 

@@ -50,6 +50,8 @@ MonoBehaviour:
   - RPCMenuMusic
   - RPCPlayLoseMusic
   - RPCPlayWinMusic
+  - RPC_OutlinePlayerMonke
+  - RPC_IncreaseLevel
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
