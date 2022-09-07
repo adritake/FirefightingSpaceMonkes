@@ -52,6 +52,10 @@ MonoBehaviour:
   - RPCPlayWinMusic
   - RPC_OutlinePlayerMonke
   - RPC_IncreaseLevel
+  - RPC_PlayLandingSound
+  - RPC_WarningFires
+  - RPCAllFiresOffSound
+  - RPCPlayBuzzSound
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
