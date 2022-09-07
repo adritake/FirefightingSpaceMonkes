@@ -81,14 +81,12 @@ namespace FFSM.GameManagers
 
         public void CreditsMusic()
         {
-            //photonView.RPC(nameof(RPCCreditsMusic), Photon.Pun.RpcTarget.AllViaServer);
             if (_musicSource.clip == creditsMusic) return;
             PlayMusic(creditsMusic);
         }
 
         public void MenuMusic()
         {
-            //photonView.RPC(nameof(RPCMenuMusic), Photon.Pun.RpcTarget.AllViaServer);
             if (_musicSource.clip == menuMusic) return;
             PlayMusic(menuMusic);
         }
@@ -98,12 +96,12 @@ namespace FFSM.GameManagers
         #region Public SFX Methods
         public void AllFiresOffSound()
         {
-            PlaySound(firesOffSound);
+            photonView.RPC(nameof(RPCAllFiresOffSound), Photon.Pun.RpcTarget.AllViaServer);
         }
 
         public void BuzzSound()
         {
-            PlaySound(buzzSound);
+            photonView.RPC(nameof(RPCPlayBuzzSound), Photon.Pun.RpcTarget.AllViaServer);
         }
 
         #endregion
@@ -128,6 +126,17 @@ namespace FFSM.GameManagers
             PlayMusic(gameMusic);
         }
 
+        [PunRPC]
+        private void RPCPlayBuzzSound()
+        {
+            PlaySound(buzzSound);
+        }
+
+        [PunRPC]
+        private void RPCAllFiresOffSound()
+        {
+            PlaySound(firesOffSound);
+        }
         #endregion
     }
 }

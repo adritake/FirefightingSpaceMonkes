@@ -37,7 +37,7 @@ namespace FFSM.GameManagers
 
         public void WarningFires()
         {
-            LevelUIManager.Instance.WarningFire();
+            photonView.RPC(nameof(RPC_WarningFires), RpcTarget.AllViaServer);
         }
 
         public void CompleteLevel()
@@ -64,6 +64,12 @@ namespace FFSM.GameManagers
         {
             AudioManager.Instance.PlayLooseMusic();
             LevelUIManager.Instance.EnableLooseCanvas(true, PhotonNetwork.IsMasterClient);
+        }
+
+        [PunRPC]
+        private void RPC_WarningFires()
+        {
+            LevelUIManager.Instance.WarningFire();
         }
         #endregion
     }

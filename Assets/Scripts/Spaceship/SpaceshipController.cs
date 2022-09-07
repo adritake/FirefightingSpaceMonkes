@@ -224,7 +224,7 @@ namespace FFSM.GameElements
                 else if (LevelManager.Instance.AllFireExtinguished())
                 {
                     LevelManager.Instance.CompleteLevel();
-                    AudioManager.Instance.PlaySound(landingSound);
+                    photonView.RPC(nameof(RPC_PlayLandingSound), RpcTarget.AllViaServer);
                     SnapSpaceshipToGround(collision.GetContact(0).point);
                 }
                 else
@@ -333,6 +333,12 @@ namespace FFSM.GameElements
                 RightMonke.SetActive(false);
                 RightMonkeOutline.SetActive(true);
             }
+        }
+
+        [PunRPC]
+        private void RPC_PlayLandingSound()
+        {
+            AudioManager.Instance.PlaySound(landingSound);
         }
         #endregion
 
