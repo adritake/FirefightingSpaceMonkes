@@ -3,8 +3,10 @@ using Photon.Pun;
 using Photon.Realtime;
 using System;
 using System.Collections;
+using FFSM.Utils;
+using FFSM.GameManagers;
 
-namespace FFSM
+namespace FFSM.Network
 {
     public class NetworkManager : PunSingleton<NetworkManager>
     {

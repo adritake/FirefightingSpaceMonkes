@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace FFSM
+namespace FFSM.GameManagers
 {
     public class CameraManager : MonoBehaviour
     {

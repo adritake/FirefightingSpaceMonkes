@@ -1,9 +1,7 @@
 using Photon.Pun;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace FFSM
+namespace FFSM.Utils
 {
     public class PunSingleton<T> : MonoBehaviourPunCallbacks where T : MonoBehaviourPunCallbacks
     {

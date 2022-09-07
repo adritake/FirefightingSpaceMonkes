@@ -1,6 +1,8 @@
+using FFSM.GameManagers;
+using FFSM.Utils;
 using UnityEngine;
 
-namespace FFSM
+namespace FFSM.UI
 {
     public class LevelUIManager : Singleton<LevelUIManager>
     {

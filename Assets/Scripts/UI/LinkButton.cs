@@ -1,10 +1,9 @@
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
+using FFSM.GameManagers;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace FFSM
+namespace FFSM.UI
 {
     public class LinkButton : MonoBehaviour
     {

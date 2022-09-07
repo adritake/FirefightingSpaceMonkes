@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace FFSM
+namespace FFSM.Utils
 {
     public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {

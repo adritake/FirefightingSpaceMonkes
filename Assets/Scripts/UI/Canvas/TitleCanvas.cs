@@ -1,7 +1,8 @@
 using UnityEngine;
 using TMPro;
+using FFSM.Network;
 
-namespace FFSM
+namespace FFSM.UI
 {
     public class TitleCanvas : MonoBehaviour
     {

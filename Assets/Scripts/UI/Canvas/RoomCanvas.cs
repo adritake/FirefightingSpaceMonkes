@@ -2,9 +2,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Photon.Realtime;
-using System.Collections;
+using FFSM.Network;
+using FFSM.GameManagers;
 
-namespace FFSM
+namespace FFSM.UI
 {
     public class RoomCanvas : MonoBehaviour
     {

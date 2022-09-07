@@ -1,8 +1,10 @@
+using FFSM.GameElements;
+using FFSM.UI;
+using FFSM.Utils;
 using Photon.Pun;
 using System.Linq;
-using UnityEngine;
 
-namespace FFSM
+namespace FFSM.GameManagers
 {
     public class LevelManager : PunSingleton<LevelManager>
     {

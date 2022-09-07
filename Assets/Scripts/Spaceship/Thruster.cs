@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
+using FFSM.GameManagers;
 using UnityEngine;
 
 
-namespace FFSM
+namespace FFSM.GameElements
 {
     public class Thruster : MonoBehaviour
     {

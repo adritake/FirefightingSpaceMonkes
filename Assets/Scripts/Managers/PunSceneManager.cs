@@ -1,10 +1,9 @@
+using FFSM.Utils;
 using Photon.Pun;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace FFSM
+namespace FFSM.GameManagers
 {
     public class PunSceneManager : Singleton<PunSceneManager>
     {

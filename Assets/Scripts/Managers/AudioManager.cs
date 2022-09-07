@@ -1,9 +1,8 @@
+using FFSM.Utils;
 using Photon.Pun;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace FFSM
+namespace FFSM.GameManagers
 {
     public class AudioManager : PunSingleton<AudioManager>
     {

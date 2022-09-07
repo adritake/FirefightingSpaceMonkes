@@ -1,8 +1,8 @@
+using FFSM.GameManagers;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace FFSM
+namespace FFSM.Utils
 {
     public class ReloadSceneUtility : MonoBehaviour
     {

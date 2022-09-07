@@ -1,7 +1,8 @@
+using FFSM.GameManagers;
 using Photon.Pun;
 using UnityEngine;
 
-namespace FFSM
+namespace FFSM.GameElements
 {
     public class Fire : MonoBehaviourPunCallbacks
     {

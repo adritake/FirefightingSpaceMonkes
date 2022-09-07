@@ -1,10 +1,8 @@
+using FFSM.GameManagers;
 using Photon.Pun;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace FFSM
+namespace FFSM.GameElements
 {
     public class SpaceshipController : MonoBehaviourPunCallbacks
     {

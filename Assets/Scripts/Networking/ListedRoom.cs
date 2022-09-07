@@ -1,10 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Photon.Realtime;
+using FFSM.UI;
+using FFSM.GameManagers;
 
-namespace FFSM
+namespace FFSM.Network
 {
     public class ListedRoom : MonoBehaviour
     {

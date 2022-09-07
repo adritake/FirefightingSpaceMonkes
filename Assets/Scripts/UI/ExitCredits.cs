@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
+using FFSM.GameManagers;
 using UnityEngine;
 
-namespace FFSM
+namespace FFSM.UI
 {
     public class ExitCredits : MonoBehaviour
     {

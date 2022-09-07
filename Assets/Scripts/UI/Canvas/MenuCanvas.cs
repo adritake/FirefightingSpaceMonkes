@@ -1,10 +1,9 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using System.Collections;
+using FFSM.Network;
+using FFSM.GameManagers;
 
-namespace FFSM
+namespace FFSM.UI
 {
     public class MenuCanvas : MonoBehaviour
     {

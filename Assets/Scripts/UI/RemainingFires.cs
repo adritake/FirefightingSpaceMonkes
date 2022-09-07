@@ -2,7 +2,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
-namespace FFSM
+namespace FFSM.UI
 {
     public class RemainingFires : MonoBehaviour
     {
